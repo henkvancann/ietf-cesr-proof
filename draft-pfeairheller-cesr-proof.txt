@@ -4,16 +4,30 @@
 
 TODO Working Group                                        P. Feairheller
 Internet-Draft                                                     GLEIF
-Intended status: Informational                           9 November 2021
-Expires: 13 May 2022
+Intended status: Informational                           2 December 2021
+Expires: 5 June 2022
 
 
-                CESR Verifiable Credential Proof Format
-                  draft-todo-yourname-protocol-latest
+                         CESR Proof Signatures
+                  draft-pfeairheller-cesr-proof-latest
 
 Abstract
 
-   TODO Abstract
+   CESR Proof Signatures are an extension to the Composable Event
+   Streaming Representation (CESR) that provide transposable
+   cryptographic signature attachments on self-addressing data (SAD).  A
+   SAD (such as an ACDC Verifiable Credential) may be signed with a CESR
+   Proof Signature and streamed alongside any other CESR content.  In
+   addition, a signed SAD can be embedded inside another SAD and the
+   CESR proof signature attachment can be transposed to the outer SAD
+   and streamed without losing any cryptographic integrity.
+
+Discussion Venues
+
+   This note is to be removed before publishing as an RFC.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/WebOfTrust/ietf-cesr-proof.
 
 Status of This Memo
 
@@ -30,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 May 2022.
+   This Internet-Draft will expire on 5 June 2022.
 
 Copyright Notice
 
@@ -49,18 +63,171 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction
-   2.  Conventions and Definitions
-   3.  Security Considerations
-   4.  IANA Considerations
-   5.  Normative References
+     1.1.  CESR Attachments
+     1.2.  Additional Count Codes
+     1.3.  Streamable SADs
+     1.4.  Nested Partial Signatures
+     1.5.  Transposable Signature Attachments
+   2.  CESR Signatures
+     2.1.  Signatures with Non-Transferable Identifiers
+     2.2.  Signatures with Transferable Identifiers
+   3.  CESR Sad Path Language
+     3.1.  Description and Usage
+     3.2.  CESR Encoding for SAD Path Language
+       3.2.1.  Small Variable Raw Size Path Code
+   4.  CESR Proof Signature Attachments
+     4.1.  -J
+     4.2.  -K
+     4.3.  Embedding and Transposable Signatures
+   5.  Presentation Exchange
+   6.  Hidden Attribute Presentations
+   7.  Conventions and Definitions
+   8.  Security Considerations
+   9.  IANA Considerations
+   10. References
+     10.1.  Normative References
+     10.2.  Informative References
    Acknowledgments
    Author's Address
 
 1.  Introduction
 
-   TODO Introduction
+   What problem are we solving.  How does it fit with CESR, KERI and
+   SAIDs
 
-2.  Conventions and Definitions
+1.1.  CESR Attachments
+
+   The specification adds 2 _Counter Four Character Codes_ to the Master
+   Code Table and 1 _Small Variable Raw Size Code Type_ to the Master
+   Code Table (which results in 3 new code entries):
+
+   +======+==========================+========+==============+========+
+   | Code | Description              |  Code  |   Count or   | Total  |
+   |      |                          | Length | Index Length | Length |
+   +======+==========================+========+==============+========+
+   |      | *Counter Four Character  |        |              |        |
+   |      | Codes*                   |        |              |        |
+   +------+--------------------------+--------+--------------+--------+
+   | -K## | Count of attached        |   4    |      2       |   4    |
+   |      | qualified Base64 indexed |        |              |        |
+   |      | controller signatures    |        |              |        |
+   +------+--------------------------+--------+--------------+--------+
+   | -J## | Count of attached        |   4    |      2       |   4    |
+   |      | qualified Base64 indexed |        |              |        |
+   |      | witness signatures       |        |              |        |
+   +------+--------------------------+--------+--------------+--------+
+   |      | *Small Variable Raw Size |        |              |        |
+   |      | Code*                    |        |              |        |
+   +------+--------------------------+--------+--------------+--------+
+   | 4A## | Size of SAD Path with 0  |   4    |      2       |   4    |
+   |      | Ante Bytes               |        |              |        |
+   +------+--------------------------+--------+--------------+--------+
+   | 5A## | Said of SAD Path with 1  |   4    |      2       |   4    |
+   |      | Ante Byte                |        |              |        |
+   +------+--------------------------+--------+--------------+--------+
+   | 6A## | Size of SAD Path with 2  |   4    |      2       |   4    |
+   |      | Ante Bytes               |        |              |        |
+   +------+--------------------------+--------+--------------+--------+
+
+                                 Table 1
+
+1.2.  Additional Count Codes
+
+1.3.  Streamable SADs
+
+1.4.  Nested Partial Signatures
+
+1.5.  Transposable Signature Attachments
+
+2.  CESR Signatures
+
+   Introduction to CESR Signatures
+
+2.1.  Signatures with Non-Transferable Identifiers
+
+2.2.  Signatures with Transferable Identifiers
+
+3.  CESR Sad Path Language
+
+3.1.  Description and Usage
+
+3.2.  CESR Encoding for SAD Path Language
+
+3.2.1.  Small Variable Raw Size Path Code
+
+4.  CESR Proof Signature Attachments
+
+4.1.  -J
+
+   -J 1 (Path, TransIdxSigGroup)
+
+4.2.  -K
+
+   -K Count of Sigs (Root Path, Path Sig Groups)
+
+4.3.  Embedding and Transposable Signatures
+
+   It is required to embed this credential in any other KERI message
+   (eg. rpy, exp, exn) along with the CESR Proof.  Since the proof is a
+   CESR attachment, this message cannot simply be embedded in another
+   JSON document.  Therefore, a method is needed to apply the attachment
+   to the outermost message while maintaining its location pointers and
+   meaning for the nested SAD that it represents.
+
+   Given the following signed SAD:
+
+   { "v": "ACDC10JSON00011c_", "d":
+   "EpcEvrX2gGTpmKbIG25GSA7_LsWwwzVQ6aUilgBubpGI", "i":
+   "EmSIYYxvgtKn9jAp8GcK3fXOwTeyBIcAnRnyrLNfKjVI", "s":
+   "EZdaE1HCu2ZhyIhpXTWfGSLS2kirKexaC-4up3sIUz1I", "a": { "d":
+   "EG7PfBZbyXS0huxbnvMD-jOdTnDCCaT4CO6xId-ATNWg", "i": "EhwC_-
+   ISX9helBDUSKU5j_VEU3G0Jp6ZFRD9dTb4-5c0", "dt":
+   "2021-06-09T17:35:54.169967+00:00", "ri":
+   "EymRy7xMwsxUelUauaXtMxTfPAMPAI6FkekwlOjkggt", "LEI":
+   "254900YH3ZCDPE1E5306", "personal": { "d": "ExSxzzsvGlhO6W0O1_-
+   k5Api8NgD8dDHLgazBxTqi_z4", "n":
+   "Q8rNaKITBLLA96Euh5M5v4o3fRl1Bc54xdM-bOIHUjY", "personLegalName":
+   "Anne Jones", "engagementContextRole": "Project Manager" } } }-KAC -
+   -JAB - -FABELfzj-TkiKYWsNKk2WE8F8VEgbu3P-_HComVHcKrvGmY0AAAAAAAAAAAAA
+   AAAAAAAAAAEO94wR_rDPALyK1KYvtjA2CuuWM5A9_T9SfnRAF0OoZs-AABAAha6OA-
+   Uw4nEHi3AleA-
+   W59sVAjTvpPg1XtuFYEnVHG0TBqTabIrSuNIJP9OpSvkZiOWYRlPG839_wAPzU106Aw
+   -JAB -a-personal -FABELfzj-TkiKYWsNKk2WE8F8VEgbu3P-_HComVHcKrvGmY0AAA
+   AAAAAAAAAAAAAAAAAAAAEO94wR_rDPALyK1KYvtjA2CuuWM5A9_T9SfnRAF0OoZs-AABA
+   AFzLPWIG3XEXzKkGxIMAozgh9me6Ss2J4HZpdtqtZDLJRzic2wTePt4wx_PNgLcukTFe7
+   0-MXy2VlJvIaJtOsDA
+
+   ``` { "v": "KERI10JSON00006a_", "t": "exn", "d":
+   "EF3Dd96ATbbMIZgUBBwuFAWx3_8s5XSt_0jeyCRXq_bM", "dt":
+   "2021-11-12T19:11:19.342132+00:00", "r": "/credential/issue", "a": {
+   "v": "ACDC10JSON00011c_", "d":
+   "EpcEvrX2gGTpmKbIG25GSA7_LsWwwzVQ6aUilgBubpGI", "i":
+   "EmSIYYxvgtKn9jAp8GcK3fXOwTeyBIcAnRnyrLNfKjVI", "s":
+   "EZdaE1HCu2ZhyIhpXTWfGSLS2kirKexaC-4up3sIUz1I", "a": { "d":
+   "EG7PfBZbyXS0huxbnvMD-jOdTnDCCaT4CO6xId-ATNWg", "i": "EhwC_-
+   ISX9helBDUSKU5j_VEU3G0Jp6ZFRD9dTb4-5c0", "dt":
+   "2021-06-09T17:35:54.169967+00:00", "ri":
+   "EymRy7xMwsxUelUauaXtMxTfPAMPAI6FkekwlOjkggt", "LEI":
+   "254900YH3ZCDPE1E5306", "personal": { "d": "ExSxzzsvGlhO6W0O1_-
+   k5Api8NgD8dDHLgazBxTqi_z4", "n":
+   "Q8rNaKITBLLA96Euh5M5v4o3fRl1Bc54xdM-bOIHUjY", "personLegalName":
+   "Anne Jones", "engagementContextRole": "Project Manager" } } } }-AAB
+   (message signature) -KAC -a -JAB - -FABELfzj-TkiKYWsNKk2WE8F8VEgbu3P-
+   _HComVHcKrvGmY0AAAAAAAAAAAAAAAAAAAAAAAEO94wR_rDPALyK1KYvtjA2CuuWM5A9_
+   T9SfnRAF0OoZs-AABAAha6OA-Uw4nEHi3AleA-
+   W59sVAjTvpPg1XtuFYEnVHG0TBqTabIrSuNIJP9OpSvkZiOWYRlPG839_wAPzU106Aw
+   -JAB -a-personal -FABELfzj-TkiKYWsNKk2WE8F8VEgbu3P-_HComVHcKrvGmY0AAA
+   AAAAAAAAAAAAAAAAAAAAEO94wR_rDPALyK1KYvtjA2CuuWM5A9_T9SfnRAF0OoZs-AABA
+   AFzLPWIG3XEXzKkGxIMAozgh9me6Ss2J4HZpdtqtZDLJRzic2wTePt4wx_PNgLcukTFe7
+   0-MXy2VlJvIaJtOsDA
+
+   ```
+
+5.  Presentation Exchange
+
+6.  Hidden Attribute Presentations
+
+7.  Conventions and Definitions
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
@@ -68,15 +235,21 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-3.  Security Considerations
+8.  Security Considerations
 
    TODO Security
 
-4.  IANA Considerations
+9.  IANA Considerations
 
    This document has no IANA actions.
 
-5.  Normative References
+10.  References
+
+10.1.  Normative References
+
+   [CESR]     Smith, S., "Composable Event Streaming Representation
+              (CESR)", 2021,
+              <https://datatracker.ietf.org/doc/draft-ssmith-cesr/>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -87,9 +260,21 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
+   [SAI]      Smith, S., "Self-Addressing IDentifier (SAID)", 2021,
+              <https://datatracker.ietf.org/doc/draft-ssmith-said/>.
+
+10.2.  Informative References
+
+   [JSON]     "JavaScript Object Notation Delimeters", n.d.,
+              <https://www.json.org/json-en.html>.
+
+   [KERI]     Smith, S., "Key Event Receipt Infrastructure (KERI)",
+              2021, <https://arxiv.org/abs/1907.02143>.
+
 Acknowledgments
 
-   TODO acknowledge.
+   Dr Sam Smith, Kevin Griffin and the Global Legal Entity Identifier
+   Foundation (GLEIF)
 
 Author's Address
 
