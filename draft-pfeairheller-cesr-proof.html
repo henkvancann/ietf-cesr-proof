@@ -8,9 +8,10 @@
 <meta content="Phil Feairheller" name="author">
 <meta content="
        CESR Proof Signatures are an extension to the Composable Event Streaming Representation (CESR) that provide transposable
-cryptographic signature attachments on self-addressing data (SAD).  A SAD (such as an ACDC Verifiable Credential) may be signed
-with a CESR Proof Signature and streamed alongside any other CESR content.  In addition, a signed SAD can be embedded inside another
-SAD and the CESR proof signature attachment can be transposed to the outer SAD and streamed without losing any cryptographic integrity. 
+cryptographic signature attachments on self-addressing data (SAD). A SAD (such as an Authentic Chained Data Container
+(ACDC) Verifiable Credential) may be signed with a CESR Proof Signature and streamed alongside any other CESR content.
+In addition, a signed SAD can be embedded inside another SAD and the CESR proof signature attachment can be transposed
+to the outer SAD and streamed without losing any cryptographic integrity. 
     " name="description">
 <meta content="xml2rfc 3.11.1" name="generator">
 <meta content="Internet-Draft" name="keyword">
@@ -1019,7 +1020,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Feairheller</td>
-<td class="center">Expires 5 June 2022</td>
+<td class="center">Expires 8 June 2022</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1032,12 +1033,12 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <dd class="internet-draft">draft-pfeairheller-cesr-proof-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2021-12-02" class="published">2 December 2021</time>
+<time datetime="2021-12-05" class="published">5 December 2021</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2022-06-05">5 June 2022</time></dd>
+<dd class="expires"><time datetime="2022-06-08">8 June 2022</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1051,9 +1052,10 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">CESR Proof Signatures are an extension to the Composable Event Streaming Representation (CESR) that provide transposable
-cryptographic signature attachments on self-addressing data (SAD).  A SAD (such as an ACDC Verifiable Credential) may be signed
-with a CESR Proof Signature and streamed alongside any other CESR content.  In addition, a signed SAD can be embedded inside another
-SAD and the CESR proof signature attachment can be transposed to the outer SAD and streamed without losing any cryptographic integrity.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+cryptographic signature attachments on self-addressing data (SAD). A SAD (such as an Authentic Chained Data Container
+(ACDC) Verifiable Credential) may be signed with a CESR Proof Signature and streamed alongside any other CESR content.
+In addition, a signed SAD can be embedded inside another SAD and the CESR proof signature attachment can be transposed
+to the outer SAD and streamed without losing any cryptographic integrity.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -1082,7 +1084,7 @@ SAD and the CESR proof signature attachment can be transposed to the outer SAD a
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 5 June 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 8 June 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1115,94 +1117,111 @@ SAD and the CESR proof signature attachment can be transposed to the outer SAD a
             <p id="section-toc.1-1.1.1"><a href="#section-1" class="xref">1</a>.  <a href="#name-introduction" class="xref">Introduction</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.1">
-                <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="xref">1.1</a>.  <a href="#name-cesr-attachments" class="xref">CESR Attachments</a></p>
+                <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="xref">1.1</a>.  <a href="#name-transposable-signature-atta" class="xref">Transposable Signature Attachments</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.2">
-                <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="xref">1.2</a>.  <a href="#name-additional-count-codes" class="xref">Additional Count Codes</a></p>
+                <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="xref">1.2</a>.  <a href="#name-selective-disclosure" class="xref">Selective Disclosure</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.3">
-                <p id="section-toc.1-1.1.2.3.1" class="keepWithNext"><a href="#section-1.3" class="xref">1.3</a>.  <a href="#name-streamable-sads" class="xref">Streamable SADs</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.4">
-                <p id="section-toc.1-1.1.2.4.1"><a href="#section-1.4" class="xref">1.4</a>.  <a href="#name-nested-partial-signatures" class="xref">Nested Partial Signatures</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.5">
-                <p id="section-toc.1-1.1.2.5.1"><a href="#section-1.5" class="xref">1.5</a>.  <a href="#name-transposable-signature-atta" class="xref">Transposable Signature Attachments</a></p>
+                <p id="section-toc.1-1.1.2.3.1" class="keepWithNext"><a href="#section-1.3" class="xref">1.3</a>.  <a href="#name-one-time-use-credentials" class="xref">One Time Use Credentials</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
-            <p id="section-toc.1-1.2.1"><a href="#section-2" class="xref">2</a>.  <a href="#name-cesr-signatures" class="xref">CESR Signatures</a></p>
+            <p id="section-toc.1-1.2.1"><a href="#section-2" class="xref">2</a>.  <a href="#name-cesr-sad-path-language" class="xref">CESR SAD Path Language</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1">
-                <p id="section-toc.1-1.2.2.1.1"><a href="#section-2.1" class="xref">2.1</a>.  <a href="#name-signatures-with-non-transfe" class="xref">Signatures with Non-Transferable Identifiers</a></p>
+                <p id="section-toc.1-1.2.2.1.1"><a href="#section-2.1" class="xref">2.1</a>.  <a href="#name-description-and-usage" class="xref">Description and Usage</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2">
-                <p id="section-toc.1-1.2.2.2.1"><a href="#section-2.2" class="xref">2.2</a>.  <a href="#name-signatures-with-transferabl" class="xref">Signatures with Transferable Identifiers</a></p>
+                <p id="section-toc.1-1.2.2.2.1"><a href="#section-2.2" class="xref">2.2</a>.  <a href="#name-sad-path-examples" class="xref">SAD Path Examples</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3">
+                <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="xref">2.3</a>.  <a href="#name-cesr-encoding-for-sad-path-" class="xref">CESR Encoding for SAD Path Language</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1"><a href="#section-3" class="xref">3</a>.  <a href="#name-cesr-sad-path-language" class="xref">CESR Sad Path Language</a></p>
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="xref">3</a>.  <a href="#name-cesr-attachments" class="xref">CESR Attachments</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
-                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="xref">3.1</a>.  <a href="#name-description-and-usage" class="xref">Description and Usage</a></p>
+                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="xref">3.1</a>.  <a href="#name-additional-count-codes" class="xref">Additional Count Codes</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
-                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="xref">3.2</a>.  <a href="#name-cesr-encoding-for-sad-path-" class="xref">CESR Encoding for SAD Path Language</a></p>
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="xref">3.2</a>.  <a href="#name-streamable-sads" class="xref">Streamable SADs</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="xref">3.3</a>.  <a href="#name-nested-partial-signatures" class="xref">Nested Partial Signatures</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
+                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="xref">3.4</a>.  <a href="#name-transposable-signature-attac" class="xref">Transposable Signature Attachments</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-cesr-signatures" class="xref">CESR Signatures</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2.2.1">
-                    <p id="section-toc.1-1.3.2.2.2.1.1"><a href="#section-3.2.1" class="xref">3.2.1</a>.  <a href="#name-small-variable-raw-size-pat" class="xref">Small Variable Raw Size Path Code</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="xref">4.1</a>.  <a href="#name-signatures-with-non-transfe" class="xref">Signatures with Non-Transferable Identifiers</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="xref">4.2</a>.  <a href="#name-signatures-with-transferabl" class="xref">Signatures with Transferable Identifiers</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
+                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="xref">4.3</a>.  <a href="#name-selective-disclosure-2" class="xref">Selective Disclosure</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3.2.1">
+                    <p id="section-toc.1-1.4.2.3.2.1.1"><a href="#section-4.3.1" class="xref">4.3.1</a>.  <a href="#name-small-variable-raw-size-pat" class="xref">Small Variable Raw Size Path Code</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-cesr-proof-signature-attach" class="xref">CESR Proof Signature Attachments</a></p>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-cesr-proof-signature-attach" class="xref">CESR Proof Signature Attachments</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
-                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="xref">4.1</a>.  <a href="#name-j" class="xref">-J</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="xref">5.1</a>.  <a href="#name-j" class="xref">-J</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
-                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="xref">4.2</a>.  <a href="#name-k" class="xref">-K</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="xref">5.2</a>.  <a href="#name-k" class="xref">-K</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
-                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="xref">4.3</a>.  <a href="#name-embedding-and-transposable-" class="xref">Embedding and Transposable Signatures</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="xref">5.3</a>.  <a href="#name-embedding-and-transposable-" class="xref">Embedding and Transposable Signatures</a></p>
 </li>
             </ul>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-presentation-exchange" class="xref">Presentation Exchange</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-hidden-attribute-presentati" class="xref">Hidden Attribute Presentations</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-presentation-exchange" class="xref">Presentation Exchange</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-conventions-and-definitions" class="xref">Conventions and Definitions</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-selective-disclosure-creden" class="xref">Selective Disclosure Credentials</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="xref">8</a>.  <a href="#name-security-considerations" class="xref">Security Considerations</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="xref">8</a>.  <a href="#name-conventions-and-definitions" class="xref">Conventions and Definitions</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="xref">9</a>.  <a href="#name-iana-considerations" class="xref">IANA Considerations</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="xref">9</a>.  <a href="#name-security-considerations" class="xref">Security Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#section-10" class="xref">10</a>. <a href="#name-references" class="xref">References</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
-                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="xref">10.1</a>.  <a href="#name-normative-references" class="xref">Normative References</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="xref">10</a>. <a href="#name-iana-considerations" class="xref">IANA Considerations</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
-                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="xref">10.2</a>.  <a href="#name-informative-references" class="xref">Informative References</a></p>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="xref">11</a>. <a href="#name-references" class="xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
+                <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="xref">11.1</a>.  <a href="#name-normative-references" class="xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2">
+                <p id="section-toc.1-1.11.2.2.1"><a href="#section-11.2" class="xref">11.2</a>.  <a href="#name-informative-references" class="xref">Informative References</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-A" class="xref"></a><a href="#name-acknowledgments" class="xref">Acknowledgments</a></p>
-</li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-B" class="xref"></a><a href="#name-authors-address" class="xref">Author's Address</a></p>
+            <p id="section-toc.1-1.12.1"><a href="#appendix-A" class="xref"></a><a href="#name-acknowledgments" class="xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
+            <p id="section-toc.1-1.13.1"><a href="#appendix-B" class="xref"></a><a href="#name-authors-address" class="xref">Author's Address</a></p>
 </li>
         </ul>
 </nav>
@@ -1213,156 +1232,347 @@ SAD and the CESR proof signature attachment can be transposed to the outer SAD a
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">What problem are we solving.  How does it fit with CESR, KERI and SAIDs<a href="#section-1-1" class="pilcrow">¶</a></p>
-<div id="cesr-attachments">
-<section id="section-1.1">
-        <h3 id="name-cesr-attachments">
-<a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-cesr-attachments" class="section-name selfRef">CESR Attachments</a>
-        </h3>
-<p id="section-1.1-1">The specification adds 2 <em>Counter Four Character Codes</em> to the Master Code Table and 1 <em>Small Variable Raw Size Code Type</em>
-to the Master Code Table (which results in 3 new code entries):<a href="#section-1.1-1" class="pilcrow">¶</a></p>
-<table class="center" id="table-1">
-          <caption><a href="#table-1" class="selfRef">Table 1</a></caption>
-<thead>
-            <tr>
-              <th class="text-center" rowspan="1" colspan="1">Code</th>
-              <th class="text-left" rowspan="1" colspan="1">Description</th>
-              <th class="text-center" rowspan="1" colspan="1">Code Length</th>
-              <th class="text-center" rowspan="1" colspan="1">Count or Index Length</th>
-              <th class="text-center" rowspan="1" colspan="1">Total Length</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="text-center" rowspan="1" colspan="1"> </td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <strong>Counter Four Character Codes</strong>
-</td>
-              <td class="text-center" rowspan="1" colspan="1"> </td>
-              <td class="text-center" rowspan="1" colspan="1"> </td>
-              <td class="text-center" rowspan="1" colspan="1"> </td>
-            </tr>
-            <tr>
-              <td class="text-center" rowspan="1" colspan="1">-K##</td>
-              <td class="text-left" rowspan="1" colspan="1">Count of attached qualified Base64 indexed controller signatures</td>
-              <td class="text-center" rowspan="1" colspan="1">4</td>
-              <td class="text-center" rowspan="1" colspan="1">2</td>
-              <td class="text-center" rowspan="1" colspan="1">4</td>
-            </tr>
-            <tr>
-              <td class="text-center" rowspan="1" colspan="1">-J##</td>
-              <td class="text-left" rowspan="1" colspan="1">Count of attached qualified Base64 indexed witness signatures</td>
-              <td class="text-center" rowspan="1" colspan="1">4</td>
-              <td class="text-center" rowspan="1" colspan="1">2</td>
-              <td class="text-center" rowspan="1" colspan="1">4</td>
-            </tr>
-            <tr>
-              <td class="text-center" rowspan="1" colspan="1"> </td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <strong>Small Variable Raw Size Code</strong>
-</td>
-              <td class="text-center" rowspan="1" colspan="1"> </td>
-              <td class="text-center" rowspan="1" colspan="1"> </td>
-              <td class="text-center" rowspan="1" colspan="1"> </td>
-            </tr>
-            <tr>
-              <td class="text-center" rowspan="1" colspan="1">4A##</td>
-              <td class="text-left" rowspan="1" colspan="1">Size of SAD Path with 0 Ante Bytes</td>
-              <td class="text-center" rowspan="1" colspan="1">4</td>
-              <td class="text-center" rowspan="1" colspan="1">2</td>
-              <td class="text-center" rowspan="1" colspan="1">4</td>
-            </tr>
-            <tr>
-              <td class="text-center" rowspan="1" colspan="1">5A##</td>
-              <td class="text-left" rowspan="1" colspan="1">Said of SAD Path with 1 Ante Byte</td>
-              <td class="text-center" rowspan="1" colspan="1">4</td>
-              <td class="text-center" rowspan="1" colspan="1">2</td>
-              <td class="text-center" rowspan="1" colspan="1">4</td>
-            </tr>
-            <tr>
-              <td class="text-center" rowspan="1" colspan="1">6A##</td>
-              <td class="text-left" rowspan="1" colspan="1">Size of SAD Path with 2 Ante Bytes</td>
-              <td class="text-center" rowspan="1" colspan="1">4</td>
-              <td class="text-center" rowspan="1" colspan="1">2</td>
-              <td class="text-center" rowspan="1" colspan="1">4</td>
-            </tr>
-          </tbody>
-        </table>
-</section>
-</div>
-<div id="additional-count-codes">
-<section id="section-1.2">
-        <h3 id="name-additional-count-codes">
-<a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-additional-count-codes" class="section-name selfRef">Additional Count Codes</a>
-      </h3>
-</section>
-</div>
-<div id="streamable-sads">
-<section id="section-1.3">
-        <h3 id="name-streamable-sads">
-<a href="#section-1.3" class="section-number selfRef">1.3. </a><a href="#name-streamable-sads" class="section-name selfRef">Streamable SADs</a>
-      </h3>
-</section>
-</div>
-<div id="nested-partial-signatures">
-<section id="section-1.4">
-        <h3 id="name-nested-partial-signatures">
-<a href="#section-1.4" class="section-number selfRef">1.4. </a><a href="#name-nested-partial-signatures" class="section-name selfRef">Nested Partial Signatures</a>
-      </h3>
-</section>
-</div>
+<p id="section-1-1">Composable Event Streaming Representation (CESR) is a dual text-binary encoding format that has the unique property of
+text-binary concatenation composability. The CESR specification not only provides the definition of the streaming format
+but also the codes needed for creating and sharing all event types and signatures on all event types for the Key Event
+Receipt Infrastructure (KERI). While all KERI event messages are self-addressing data (SAD), there is a broad class of
+SADs that are not KERI events but that require signature attachments. ACDC Verifiable credentials fit into this class of
+SADs. With more complex data structures represented as SADs, such as verifiable credentials, there is a need to provide
+signature attachments on nested subsets of SADs. Similar to indices in indexed controller signatures in KERI that
+specify the location of the public key they represent, nested SAD signatures need a path mechanism to specify the exact
+location of the nested content that they are signing. CESR Proof Signatures provide this mechanism with the CESR SAD
+Path Language and a new attachment code, detailed below.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <div id="transposable-signature-attachments">
-<section id="section-1.5">
+<section id="section-1.1">
         <h3 id="name-transposable-signature-atta">
-<a href="#section-1.5" class="section-number selfRef">1.5. </a><a href="#name-transposable-signature-atta" class="section-name selfRef">Transposable Signature Attachments</a>
+<a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-transposable-signature-atta" class="section-name selfRef">Transposable Signature Attachments</a>
+        </h3>
+<p id="section-1.1-1">There are several events in KERI that can contain context specific embedded self-addressing data (SADs). Exchange
+events (<code>exn</code>) for peer-to-peer communication and Replay events (<code>rpy</code>) for responding to data requests as well as
+Expose events (<code>exp</code>) for providing anchored data are all examples of KERI events that contain embedded SADs as part of
+their payload. If the SAD payload for one of these event types is signed with a CESR attachment, the resulting structure
+is not embeddable in one of the mapping serializations (JSON, CBOR, MessagePack) supported by CESR. To solve this
+problem, CESR Proof Signatures are transposable in that an entire signature group on any given SAD can be transposed to
+attach to the end of an outer SAD without losing its meaning. This unique feature is provided by a root path designation
+in the outermost attachment code of any SAD signature group that can be updated to point to the embedding location of
+the outer SAD. Protocols for verifiable credential issuance and proof presentation can be defined using this capability
+to embed the same verifiable credential SAD at and location in an outer <code>exn</code> message as appropriate for the protocol
+without having to define a unique signature scheme for each protocol.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="selective-disclosure">
+<section id="section-1.2">
+        <h3 id="name-selective-disclosure">
+<a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-selective-disclosure" class="section-name selfRef">Selective Disclosure</a>
       </h3>
 </section>
 </div>
-</section>
-</div>
-<div id="cesr-signatures">
-<section id="section-2">
-      <h2 id="name-cesr-signatures">
-<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-cesr-signatures" class="section-name selfRef">CESR Signatures</a>
-      </h2>
-<p id="section-2-1">Introduction to CESR Signatures<a href="#section-2-1" class="pilcrow">¶</a></p>
-<div id="signatures-with-non-transferable-identifiers">
-<section id="section-2.1">
-        <h3 id="name-signatures-with-non-transfe">
-<a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-signatures-with-non-transfe" class="section-name selfRef">Signatures with Non-Transferable Identifiers</a>
-      </h3>
-</section>
-</div>
-<div id="signatures-with-transferable-identifiers">
-<section id="section-2.2">
-        <h3 id="name-signatures-with-transferabl">
-<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-signatures-with-transferabl" class="section-name selfRef">Signatures with Transferable Identifiers</a>
+<div id="one-time-use-credentials">
+<section id="section-1.3">
+        <h3 id="name-one-time-use-credentials">
+<a href="#section-1.3" class="section-number selfRef">1.3. </a><a href="#name-one-time-use-credentials" class="section-name selfRef">One Time Use Credentials</a>
       </h3>
 </section>
 </div>
 </section>
 </div>
 <div id="cesr-sad-path-language">
-<section id="section-3">
+<section id="section-2">
       <h2 id="name-cesr-sad-path-language">
-<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-cesr-sad-path-language" class="section-name selfRef">CESR Sad Path Language</a>
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-cesr-sad-path-language" class="section-name selfRef">CESR SAD Path Language</a>
       </h2>
+<p id="section-2-1">CESR Proof Signatures defines a SAD Path Language to be used in signature attachments for specifying the location of the
+SAD content within the signed SAD that a signature attachment is verifying. This path language has a more limited scope
+than alternatives like JSONPath and is therefore simpler and easier to encode in CESR signature attachments. SADs in
+CESR and therefore CESR Proof Signatures require static field ordering of all maps. The SAD path language takes
+advantage of this feature to allow for a base64 compatible syntax into SADs even when a SAD uses non-base64 compatible
+characters for field labels.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <div id="description-and-usage">
-<section id="section-3.1">
+<section id="section-2.1">
         <h3 id="name-description-and-usage">
-<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-description-and-usage" class="section-name selfRef">Description and Usage</a>
-      </h3>
+<a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-description-and-usage" class="section-name selfRef">Description and Usage</a>
+        </h3>
+<p id="section-2.1-1">The SAD path language contains a single reserved character, the <code>-</code> (dash) character. Similar to the <code>/</code> (forward slack)
+character in URLs, the <code>-</code> in the SAD Path Language is the path separator between components of the path. The <code>-</code> was
+selected because it is a one of the valid base64 characters.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
+<p id="section-2.1-2">The simplest path in the SAD Path Language is a single <code>-</code> character representing the root path which specifies the top
+level of the SAD content.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
+<p id="section-2.1-3">Root Path
+<code>-</code><a href="#section-2.1-3" class="pilcrow">¶</a></p>
+<p id="section-2.1-4">After the root path, path components follow, delimited by the <code>-</code> character. Path components may be integer indices into
+field labels or arrays or may be full field labels. No wildcards are supported by the SAD Path Language<a href="#section-2.1-4" class="pilcrow">¶</a></p>
+<p id="section-2.1-5">An example SAD Path using only labels that resolve to map contexts follows:<a href="#section-2.1-5" class="pilcrow">¶</a></p>
+<p id="section-2.1-6"><code>
+-a-personal
+</code><a href="#section-2.1-6" class="pilcrow">¶</a></p>
+<p id="section-2.1-7">In addition, integers can be specified and their meaning is dependent on the context of the SAD.<a href="#section-2.1-7" class="pilcrow">¶</a></p>
+<p id="section-2.1-8"><code>
+-1-12-personal-0
+</code><a href="#section-2.1-8" class="pilcrow">¶</a></p>
+<p id="section-2.1-9">The rules for a SAD Path Language processor are simple. If a path consists of only a single <code>-</code>, it represents the root
+of the SAD and therefore the entire SAD content. Following any <code>-</code> character is a path component that points to a field
+if the current context is a map in the SAD or is an index of an element if the current context is an array. It is an
+error for any sub-path to resolve to a value this is not a map or an array.<a href="#section-2.1-9" class="pilcrow">¶</a></p>
+<p id="section-2.1-10">The root context (after the initial <code>-</code>) is always a map. Therefore, the first path component represents a field of that
+map. The SAD is traversed following the path components as field labels or indexes in arrays until the end of the path
+is reached. The value at the end of the path is then returned as the resolution of the SAD Path. If the current context
+is a map and the path component is an integer, the path component represents an index into fields of the map. This
+feature takes advantage of the static field ordering of SADs and is used against any SAD that contains field labels that
+use non-base64 compatible characters or the <code>-</code> character. Any combination of integer and field label path components
+can be used when the current context is a map. All path components <span class="bcp14">MUST</span> be an integer when the current context is an
+array.<a href="#section-2.1-10" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sad-path-examples">
+<section id="section-2.2">
+        <h3 id="name-sad-path-examples">
+<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-sad-path-examples" class="section-name selfRef">SAD Path Examples</a>
+        </h3>
+<p id="section-2.2-1">This section provides some more examples for SAD Path expressions. The examples are based on Authentic Chained Data
+Containers (ACDCs) representing verifiable credentials.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.2-2"><code>json
+{
+  "v": "ACDC10JSON00011c_",
+  "d": "EBdXt3gIXOf2BBWNHdSXCJnFJL5OuQPyM5K0neuniccM",
+  "i": "did:keri:EmkPreYpZfFk66jpf3uFv7vklXKhzBrAqjsKAn2EDIPM",
+  "s": "E46jrVPTzlSkUPqGGeIZ8a8FWS7a6s4reAXRZOkogZ2A",
+  "a": {
+    "d": "EgveY4-9XgOcLxUderzwLIr9Bf7V_NHwY1lkFrn9y2PY",
+    "i": "did:keri:EQzFVaMasUf4cZZBKA0pUbRc9T8yUXRFLyM1JDASYqAA",
+    "dt": "2021-06-09T17:35:54.169967+00:00",
+    "ri": "did:keri:EymRy7xMwsxUelUauaXtMxTfPAMPAI6FkekwlOjkggt",
+    "LEI": "254900OPPU84GM83MG36",
+    "personal": {
+      "legalName": "John Doe",
+      "home-city": "Durham"
+    }
+  },
+  "p": [
+    {
+      "qualifiedIssuerCredential": {
+        "d": "EIl3MORH3dCdoFOLe71iheqcywJcnjtJtQIYPvAu6DZA",
+        "i": "Et2DOOu4ivLsjpv89vgv6auPntSLx4CvOhGUxMhxPS24"
+      }
+    },
+    {
+      "certifiedLender": {
+        "d": "EglG9JLG6UhkLrrv012NPuLEc1F3ne5vPH_sHGP_QPN0",
+        "i": "E8YrUcVIqrMtDJHMHDde7LHsrBOpvN38PLKe_JCDzVrA"
+      }
+    }
+  ]
+}
+</code><a href="#section-2.2-2" class="pilcrow">¶</a></p>
+<p id="section-2.2-3">Figure 1. Example ACDC Credential SAD<a href="#section-2.2-3" class="pilcrow">¶</a></p>
+<p id="section-2.2-4">The examples in Table 1 represent all the features of the SAD Path language when referring to the SAD in Figure 1.<a href="#section-2.2-4" class="pilcrow">¶</a></p>
+<table class="center" id="table-1">
+          <caption><a href="#table-1" class="selfRef">Table 1</a></caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">SAD Path</th>
+              <th class="text-left" rowspan="1" colspan="1">Result</th>
+              <th class="text-left" rowspan="1" colspan="1">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">-</td>
+              <td class="text-left" rowspan="1" colspan="1">The root of the SAD</td>
+              <td class="text-left" rowspan="1" colspan="1">Root Path</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">-a-personal</td>
+              <td class="text-left" rowspan="1" colspan="1">The personal map of the a field</td>
+              <td class="text-left" rowspan="1" colspan="1">Only field labels</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">-4-5</td>
+              <td class="text-left" rowspan="1" colspan="1">The personal map of the a field</td>
+              <td class="text-left" rowspan="1" colspan="1">Only field indices</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">-4-5-legalName</td>
+              <td class="text-left" rowspan="1" colspan="1">"John Doe"</td>
+              <td class="text-left" rowspan="1" colspan="1">Mixing field labels and indices</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">-a-personal-1</td>
+              <td class="text-left" rowspan="1" colspan="1">"Durham"</td>
+              <td class="text-left" rowspan="1" colspan="1">Required to use field index because field label contains <code>-</code>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">-p-1</td>
+              <td class="text-left" rowspan="1" colspan="1">The second element in the p array</td>
+              <td class="text-left" rowspan="1" colspan="1">Array context and index</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">-p-0-0-d</td>
+              <td class="text-left" rowspan="1" colspan="1">"EIl3MORH3dCdoFOLe71iheqcywJcnjtJtQIYPvAu6DZA"</td>
+              <td class="text-left" rowspan="1" colspan="1">Mixing field labels, field indices and array indices</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">-p-0-certifiedLender-i</td>
+              <td class="text-left" rowspan="1" colspan="1">"E8YrUcVIqrMtDJHMHDde7LHsrBOpvN38PLKe_JCDzVrA"</td>
+              <td class="text-left" rowspan="1" colspan="1"> </td>
+            </tr>
+          </tbody>
+        </table>
 </section>
 </div>
 <div id="cesr-encoding-for-sad-path-language">
-<section id="section-3.2">
+<section id="section-2.3">
         <h3 id="name-cesr-encoding-for-sad-path-">
-<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-cesr-encoding-for-sad-path-" class="section-name selfRef">CESR Encoding for SAD Path Language</a>
+<a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-cesr-encoding-for-sad-path-" class="section-name selfRef">CESR Encoding for SAD Path Language</a>
+      </h3>
+</section>
+</div>
+</section>
+</div>
+<div id="cesr-attachments">
+<section id="section-3">
+      <h2 id="name-cesr-attachments">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-cesr-attachments" class="section-name selfRef">CESR Attachments</a>
+      </h2>
+<p id="section-3-1">The specification adds 2 <em>Counter Four Character Codes</em> to the Master Code Table and 1 <em>Small Variable Raw Size Code
+Type</em>
+to the Master Code Table (which results in 3 new code entries):<a href="#section-3-1" class="pilcrow">¶</a></p>
+<table class="center" id="table-2">
+        <caption><a href="#table-2" class="selfRef">Table 2</a></caption>
+<thead>
+          <tr>
+            <th class="text-center" rowspan="1" colspan="1">Code</th>
+            <th class="text-left" rowspan="1" colspan="1">Description</th>
+            <th class="text-center" rowspan="1" colspan="1">Code Length</th>
+            <th class="text-center" rowspan="1" colspan="1">Count or Index Length</th>
+            <th class="text-center" rowspan="1" colspan="1">Total Length</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-left" rowspan="1" colspan="1">**Counter Four Character</td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+          </tr>
+          <tr>
+            <td class="text-center" rowspan="1" colspan="1">Codes**</td>
+            <td class="text-left" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+          </tr>
+          <tr>
+            <td class="text-center" rowspan="1" colspan="1">-K##</td>
+            <td class="text-left" rowspan="1" colspan="1">Count of attached qualified Base64 indexed controller signatures</td>
+            <td class="text-center" rowspan="1" colspan="1">4</td>
+            <td class="text-center" rowspan="1" colspan="1">2</td>
+            <td class="text-center" rowspan="1" colspan="1">4</td>
+          </tr>
+          <tr>
+            <td class="text-center" rowspan="1" colspan="1">-J##</td>
+            <td class="text-left" rowspan="1" colspan="1">Count of attached qualified Base64 indexed witness signatures</td>
+            <td class="text-center" rowspan="1" colspan="1">4</td>
+            <td class="text-center" rowspan="1" colspan="1">2</td>
+            <td class="text-center" rowspan="1" colspan="1">4</td>
+          </tr>
+          <tr>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-left" rowspan="1" colspan="1">**Small Variable Raw Size</td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+          </tr>
+          <tr>
+            <td class="text-center" rowspan="1" colspan="1">Code**</td>
+            <td class="text-left" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+          </tr>
+          <tr>
+            <td class="text-center" rowspan="1" colspan="1">4A##</td>
+            <td class="text-left" rowspan="1" colspan="1">Size of SAD Path with 0 Lead Bytes</td>
+            <td class="text-center" rowspan="1" colspan="1">4</td>
+            <td class="text-center" rowspan="1" colspan="1">2</td>
+            <td class="text-center" rowspan="1" colspan="1">4</td>
+          </tr>
+          <tr>
+            <td class="text-center" rowspan="1" colspan="1">5A##</td>
+            <td class="text-left" rowspan="1" colspan="1">Said of SAD Path with 1 Lead Byte</td>
+            <td class="text-center" rowspan="1" colspan="1">4</td>
+            <td class="text-center" rowspan="1" colspan="1">2</td>
+            <td class="text-center" rowspan="1" colspan="1">4</td>
+          </tr>
+          <tr>
+            <td class="text-center" rowspan="1" colspan="1">6A##</td>
+            <td class="text-left" rowspan="1" colspan="1">Size of SAD Path with 2 Lead Bytes</td>
+            <td class="text-center" rowspan="1" colspan="1">4</td>
+            <td class="text-center" rowspan="1" colspan="1">2</td>
+            <td class="text-center" rowspan="1" colspan="1">4</td>
+          </tr>
+        </tbody>
+      </table>
+<div id="additional-count-codes">
+<section id="section-3.1">
+        <h3 id="name-additional-count-codes">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-additional-count-codes" class="section-name selfRef">Additional Count Codes</a>
+      </h3>
+</section>
+</div>
+<div id="streamable-sads">
+<section id="section-3.2">
+        <h3 id="name-streamable-sads">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-streamable-sads" class="section-name selfRef">Streamable SADs</a>
+      </h3>
+</section>
+</div>
+<div id="nested-partial-signatures">
+<section id="section-3.3">
+        <h3 id="name-nested-partial-signatures">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-nested-partial-signatures" class="section-name selfRef">Nested Partial Signatures</a>
+      </h3>
+</section>
+</div>
+<div id="transposable-signature-attachments-1">
+<section id="section-3.4">
+        <h3 id="name-transposable-signature-attac">
+<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-transposable-signature-attac" class="section-name selfRef">Transposable Signature Attachments</a>
+      </h3>
+</section>
+</div>
+</section>
+</div>
+<div id="cesr-signatures">
+<section id="section-4">
+      <h2 id="name-cesr-signatures">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-cesr-signatures" class="section-name selfRef">CESR Signatures</a>
+      </h2>
+<p id="section-4-1">Introduction to CESR Signatures<a href="#section-4-1" class="pilcrow">¶</a></p>
+<div id="signatures-with-non-transferable-identifiers">
+<section id="section-4.1">
+        <h3 id="name-signatures-with-non-transfe">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-signatures-with-non-transfe" class="section-name selfRef">Signatures with Non-Transferable Identifiers</a>
+      </h3>
+</section>
+</div>
+<div id="signatures-with-transferable-identifiers">
+<section id="section-4.2">
+        <h3 id="name-signatures-with-transferabl">
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-signatures-with-transferabl" class="section-name selfRef">Signatures with Transferable Identifiers</a>
+      </h3>
+</section>
+</div>
+<div id="selective-disclosure-1">
+<section id="section-4.3">
+        <h3 id="name-selective-disclosure-2">
+<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-selective-disclosure-2" class="section-name selfRef">Selective Disclosure</a>
         </h3>
 <div id="small-variable-raw-size-path-code">
-<section id="section-3.2.1">
+<section id="section-4.3.1">
           <h4 id="name-small-variable-raw-size-pat">
-<a href="#section-3.2.1" class="section-number selfRef">3.2.1. </a><a href="#name-small-variable-raw-size-pat" class="section-name selfRef">Small Variable Raw Size Path Code</a>
+<a href="#section-4.3.1" class="section-number selfRef">4.3.1. </a><a href="#name-small-variable-raw-size-pat" class="section-name selfRef">Small Variable Raw Size Path Code</a>
         </h4>
 </section>
 </div>
@@ -1371,41 +1581,41 @@ to the Master Code Table (which results in 3 new code entries):<a href="#section
 </section>
 </div>
 <div id="cesr-proof-signature-attachments">
-<section id="section-4">
+<section id="section-5">
       <h2 id="name-cesr-proof-signature-attach">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-cesr-proof-signature-attach" class="section-name selfRef">CESR Proof Signature Attachments</a>
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-cesr-proof-signature-attach" class="section-name selfRef">CESR Proof Signature Attachments</a>
       </h2>
 <div id="j">
-<section id="section-4.1">
+<section id="section-5.1">
         <h3 id="name-j">
-<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-j" class="section-name selfRef">-J</a>
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-j" class="section-name selfRef">-J</a>
         </h3>
-<p id="section-4.1-1"><code>
+<p id="section-5.1-1"><code>
 -J 1 (Path, TransIdxSigGroup)
-</code><a href="#section-4.1-1" class="pilcrow">¶</a></p>
+</code><a href="#section-5.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="k">
-<section id="section-4.2">
+<section id="section-5.2">
         <h3 id="name-k">
-<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-k" class="section-name selfRef">-K</a>
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-k" class="section-name selfRef">-K</a>
         </h3>
-<p id="section-4.2-1"><code>
+<p id="section-5.2-1"><code>
 -K Count of Sigs (Root Path, Path Sig Groups)
-</code><a href="#section-4.2-1" class="pilcrow">¶</a></p>
+</code><a href="#section-5.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="embedding-and-transposable-signatures">
-<section id="section-4.3">
+<section id="section-5.3">
         <h3 id="name-embedding-and-transposable-">
-<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-embedding-and-transposable-" class="section-name selfRef">Embedding and Transposable Signatures</a>
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-embedding-and-transposable-" class="section-name selfRef">Embedding and Transposable Signatures</a>
         </h3>
-<p id="section-4.3-1">It is required to embed this credential in any other KERI message (eg. <code>rpy</code>, <code>exp</code>, <code>exn</code>) along with the CESR Proof.
-Since the proof is a CESR attachment, this message cannot simply be embedded in another JSON document.  Therefore, a
+<p id="section-5.3-1">It is required to embed this credential in any other KERI message (eg. <code>rpy</code>, <code>exp</code>, <code>exn</code>) along with the CESR Proof.
+Since the proof is a CESR attachment, this message cannot simply be embedded in another JSON document. Therefore, a
 method is needed to apply the attachment to the outermost message while maintaining its location pointers and meaning
-for the nested SAD that it represents.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
-<p id="section-4.3-2">Given the following signed SAD:<a href="#section-4.3-2" class="pilcrow">¶</a></p>
-<p id="section-4.3-3"><code>
+for the nested SAD that it represents.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3-2">Given the following signed SAD:<a href="#section-5.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.3-3"><code>
 {
   "v": "ACDC10JSON00011c_",
   "d": "EpcEvrX2gGTpmKbIG25GSA7_LsWwwzVQ6aUilgBubpGI",
@@ -1426,8 +1636,8 @@ for the nested SAD that it represents.<a href="#section-4.3-1" class="pilcrow">�
   }
 }-KAC  -  -JAB  -  -FABELfzj-TkiKYWsNKk2WE8F8VEgbu3P-_HComVHcKrvGmY0AAAAAAAAAAAAAAAAAAAAAAAEO94wR_rDPALyK1KYvtjA2CuuWM5A9_T9SfnRAF0OoZs-AABAAha6OA-Uw4nEHi3AleA-W59sVAjTvpPg1XtuFYEnVHG0TBqTabIrSuNIJP9OpSvkZiOWYRlPG839_wAPzU106Aw
           -JAB  -a-personal -FABELfzj-TkiKYWsNKk2WE8F8VEgbu3P-_HComVHcKrvGmY0AAAAAAAAAAAAAAAAAAAAAAAEO94wR_rDPALyK1KYvtjA2CuuWM5A9_T9SfnRAF0OoZs-AABAAFzLPWIG3XEXzKkGxIMAozgh9me6Ss2J4HZpdtqtZDLJRzic2wTePt4wx_PNgLcukTFe70-MXy2VlJvIaJtOsDA
-</code><a href="#section-4.3-3" class="pilcrow">¶</a></p>
-<p id="section-4.3-4">```
+</code><a href="#section-5.3-3" class="pilcrow">¶</a></p>
+<p id="section-5.3-4">```
 {
   "v": "KERI10JSON00006a_",
   "t": "exn",
@@ -1455,60 +1665,60 @@ for the nested SAD that it represents.<a href="#section-4.3-1" class="pilcrow">�
   }
 }-AAB (message signature)
 -KAC  -a  -JAB  -  -FABELfzj-TkiKYWsNKk2WE8F8VEgbu3P-_HComVHcKrvGmY0AAAAAAAAAAAAAAAAAAAAAAAEO94wR_rDPALyK1KYvtjA2CuuWM5A9_T9SfnRAF0OoZs-AABAAha6OA-Uw4nEHi3AleA-W59sVAjTvpPg1XtuFYEnVHG0TBqTabIrSuNIJP9OpSvkZiOWYRlPG839_wAPzU106Aw
-          -JAB  -a-personal -FABELfzj-TkiKYWsNKk2WE8F8VEgbu3P-_HComVHcKrvGmY0AAAAAAAAAAAAAAAAAAAAAAAEO94wR_rDPALyK1KYvtjA2CuuWM5A9_T9SfnRAF0OoZs-AABAAFzLPWIG3XEXzKkGxIMAozgh9me6Ss2J4HZpdtqtZDLJRzic2wTePt4wx_PNgLcukTFe70-MXy2VlJvIaJtOsDA<a href="#section-4.3-4" class="pilcrow">¶</a></p>
-<p id="section-4.3-5">```<a href="#section-4.3-5" class="pilcrow">¶</a></p>
+          -JAB  -a-personal -FABELfzj-TkiKYWsNKk2WE8F8VEgbu3P-_HComVHcKrvGmY0AAAAAAAAAAAAAAAAAAAAAAAEO94wR_rDPALyK1KYvtjA2CuuWM5A9_T9SfnRAF0OoZs-AABAAFzLPWIG3XEXzKkGxIMAozgh9me6Ss2J4HZpdtqtZDLJRzic2wTePt4wx_PNgLcukTFe70-MXy2VlJvIaJtOsDA<a href="#section-5.3-4" class="pilcrow">¶</a></p>
+<p id="section-5.3-5">```<a href="#section-5.3-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="presentation-exchange">
-<section id="section-5">
+<section id="section-6">
       <h2 id="name-presentation-exchange">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-presentation-exchange" class="section-name selfRef">Presentation Exchange</a>
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-presentation-exchange" class="section-name selfRef">Presentation Exchange</a>
     </h2>
 </section>
 </div>
-<div id="hidden-attribute-presentations">
-<section id="section-6">
-      <h2 id="name-hidden-attribute-presentati">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-hidden-attribute-presentati" class="section-name selfRef">Hidden Attribute Presentations</a>
+<div id="selective-disclosure-credentials">
+<section id="section-7">
+      <h2 id="name-selective-disclosure-creden">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-selective-disclosure-creden" class="section-name selfRef">Selective Disclosure Credentials</a>
     </h2>
 </section>
 </div>
 <div id="conventions-and-definitions">
-<section id="section-7">
+<section id="section-8">
       <h2 id="name-conventions-and-definitions">
-<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
       </h2>
-<p id="section-7-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
+<p id="section-8-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
 "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="xref">RFC8174</a>]</span> when, and only when, they
-appear in all capitals, as shown here.<a href="#section-7-1" class="pilcrow">¶</a></p>
+appear in all capitals, as shown here.<a href="#section-8-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
-<section id="section-8">
+<section id="section-9">
       <h2 id="name-security-considerations">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-8-1">TODO Security<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-9-1">TODO Security<a href="#section-9-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
-<section id="section-9">
+<section id="section-10">
       <h2 id="name-iana-considerations">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-9-1">This document has no IANA actions.<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-10-1">This document has no IANA actions.<a href="#section-10-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<section id="section-10">
+<section id="section-11">
       <h2 id="name-references">
-<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-references" class="section-name selfRef">References</a>
+<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
-<section id="section-10.1">
+<section id="section-11.1">
         <h3 id="name-normative-references">
-<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
 <dt id="CESR">[CESR]</dt>
@@ -1523,20 +1733,24 @@ appear in all capitals, as shown here.<a href="#section-7-1" class="pilcrow">¶<
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="SAI">[SAI]</dt>
+<dt id="SAID">[SAID]</dt>
       <dd>
 <span class="refAuthor">Smith, S.</span>, <span class="refTitle">"Self-Addressing IDentifier (SAID)"</span>, <time datetime="2021" class="refDate">2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-ssmith-said/">https://datatracker.ietf.org/doc/draft-ssmith-said/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
-<section id="section-10.2">
+<section id="section-11.2">
         <h3 id="name-informative-references">
-<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+<a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
 <dt id="JSON">[JSON]</dt>
         <dd>
 <span class="refTitle">"JavaScript Object Notation Delimeters"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.json.org/json-en.html">https://www.json.org/json-en.html</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="JSONPath">[JSONPath]</dt>
+        <dd>
+<span class="refTitle">"JSONPath -- XPath for JSON"</span>, <span>n.d.</span>, <span>&lt;<a href="https://tools.ietf.org/id/draft-goessner-dispatch-jsonpath-00.html">https://tools.ietf.org/id/draft-goessner-dispatch-jsonpath-00.html</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="KERI">[KERI]</dt>
       <dd>
