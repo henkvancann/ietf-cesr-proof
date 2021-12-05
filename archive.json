@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-12-02T01:05:54.330244+00:00",
+  "timestamp": "2021-12-05T01:11:13.915722+00:00",
   "repo": "WebOfTrust/ietf-cesr-proof",
   "labels": [
     {
@@ -50,5 +50,60 @@
     }
   ],
   "issues": [],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOGWk-OM4vVHF7",
+      "title": "0.0.1",
+      "url": "https://github.com/WebOfTrust/ietf-cesr-proof/pull/1",
+      "state": "CLOSED",
+      "author": "pfeairheller",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Initial outline.",
+      "createdAt": "2021-12-02T20:53:26Z",
+      "updatedAt": "2021-12-02T21:00:34Z",
+      "baseRepository": "WebOfTrust/ietf-cesr-proof",
+      "baseRefName": "main",
+      "baseRefOid": "6d3012023fcdac7849bbdbb0fb7ef49b2c95d891",
+      "headRepository": "WebOfTrust/ietf-cesr-proof",
+      "headRefName": "feat-embedding",
+      "headRefOid": "61d9c2ad83e6a461ed5cf83064c5e521476aece3",
+      "closedAt": "2021-12-02T21:00:26Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDOGWk-OM4vVIvK",
+      "title": "0.0.1",
+      "url": "https://github.com/WebOfTrust/ietf-cesr-proof/pull/2",
+      "state": "MERGED",
+      "author": "pfeairheller",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Initial outline.",
+      "createdAt": "2021-12-02T21:03:52Z",
+      "updatedAt": "2021-12-02T21:30:24Z",
+      "baseRepository": "WebOfTrust/ietf-cesr-proof",
+      "baseRefName": "main",
+      "baseRefOid": "6d3012023fcdac7849bbdbb0fb7ef49b2c95d891",
+      "headRepository": "pfeairheller/ietf-cesr-proof",
+      "headRefName": "feat-outline",
+      "headRefOid": "5ec7039c702f584ae3f752b9f06e8f12c5f10425",
+      "closedAt": "2021-12-02T21:30:19Z",
+      "mergedAt": "2021-12-02T21:30:19Z",
+      "mergedBy": "pfeairheller",
+      "mergeCommit": {
+        "oid": "e8bbe87b2d42d4dd263063340deab5ec776e5dfd"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
