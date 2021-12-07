@@ -4,8 +4,8 @@
 
 TODO Working Group                                        P. Feairheller
 Internet-Draft                                                     GLEIF
-Intended status: Informational                           5 December 2021
-Expires: 8 June 2022
+Intended status: Informational                           7 December 2021
+Expires: 10 June 2022
 
 
                          CESR Proof Signatures
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 June 2022.
+   This Internet-Draft will expire on 10 June 2022.
 
 Copyright Notice
 
@@ -69,24 +69,24 @@ Table of Contents
      1.3.  One Time Use Credentials
    2.  CESR SAD Path Language
      2.1.  Description and Usage
-     2.2.  SAD Path Examples
-     2.3.  CESR Encoding for SAD Path Language
+     2.2.  CESR Encoding for SAD Path Language
+     2.3.  SAD Path Examples
    3.  CESR Attachments
-     3.1.  Additional Count Codes
-     3.2.  Streamable SADs
-     3.3.  Nested Partial Signatures
-     3.4.  Transposable Signature Attachments
-   4.  CESR Signatures
-     4.1.  Signatures with Non-Transferable Identifiers
-     4.2.  Signatures with Transferable Identifiers
-     4.3.  Selective Disclosure
-       4.3.1.  Small Variable Raw Size Path Code
-   5.  CESR Proof Signature Attachments
-     5.1.  -J
-     5.2.  -K
-     5.3.  Embedding and Transposable Signatures
-   6.  Presentation Exchange
-   7.  Selective Disclosure Credentials
+     3.1.  CESR Signature Attachments
+       3.1.1.  Signing SAD Content
+       3.1.2.  Signatures with Non-Transferable Identifiers
+       3.1.3.  Signatures with Transferable Identifiers
+       3.1.4.  Nested Partial Signatures
+     3.2.  Additional Count Codes
+       3.2.1.  SAD Path Signature Group
+       3.2.2.  SAD Path Groups
+     3.3.  Small Variable Raw Size SAD Path Code
+   4.  Streamable SADs
+     4.1.  Nested Partial Signatures
+     4.2.  Embedding and Transposable Signatures
+   5.  Presentation Exchange
+   6.  Selective Disclosure Credentials
+   7.  One-Time Use Credentials
    8.  Conventions and Definitions
    9.  Security Considerations
    10. IANA Considerations
@@ -167,7 +167,7 @@ Table of Contents
    representing the root path which specifies the top level of the SAD
    content.
 
-   Root Path -
+   Root Path ~~~ - ~~~
 
    After the root path, path components follow, delimited by the -
    character.  Path components may be integer indices into field labels
@@ -190,7 +190,8 @@ Table of Contents
    path component that points to a field if the current context is a map
    in the SAD or is an index of an element if the current context is an
    array.  It is an error for any sub-path to resolve to a value this is
-   not a map or an array.
+   not a map or an array.  Any trailing - character in a SAD Path can be
+   ignored.
 
    The root context (after the initial -) is always a map.  Therefore,
    the first path component represents a field of that map.  The SAD is
@@ -206,216 +207,329 @@ Table of Contents
    is a map.  All path components MUST be an integer when the current
    context is an array.
 
-2.2.  SAD Path Examples
+2.2.  CESR Encoding for SAD Path Language
+
+   SAD Paths are variable raw size primitives that require CESR variable
+   size codes.  We reserve the A small variable size code for SAD Paths
+   resulting in 3 code entries being added to the Master Code Table,
+   4A##, 5A## and 6A## for SAD Paths with 0 lead bytes, 1 lead byte and
+   2 lead bytes respecively.  These codes are detailed in Table 2 below.
+   The selector not only encodes the table but also implicitly encodes
+   the number of lead bytes.  The variable size is measured in quadlets
+   of 4 characters each in the T domain and equivalently in triplets of
+   3 bytes each in the B domain.  Thus computing the number of
+   characters when parsing or off-loading in the T domain means
+   multiplying the variable size by 4.  Computing the number of bytes
+   when parsing or off-loading in the B domain means multiplying the
+   variable size by 3.  The two Base64 size characters provide value
+   lengths in quadlets/triplets from 0 to 4095 (64**2 -1).  This
+   corresponds to path lengths of up to 16,380 characters (4095 * 4) or
+   12,285 bytes (4095 * 3).
+
+2.3.  SAD Path Examples
 
    This section provides some more examples for SAD Path expressions.
    The examples are based on Authentic Chained Data Containers (ACDCs)
    representing verifiable credentials.
 
-   json { "v": "ACDC10JSON00011c_", "d":
-   "EBdXt3gIXOf2BBWNHdSXCJnFJL5OuQPyM5K0neuniccM", "i":
-   "did:keri:EmkPreYpZfFk66jpf3uFv7vklXKhzBrAqjsKAn2EDIPM", "s":
-   "E46jrVPTzlSkUPqGGeIZ8a8FWS7a6s4reAXRZOkogZ2A", "a": { "d":
-   "EgveY4-9XgOcLxUderzwLIr9Bf7V_NHwY1lkFrn9y2PY", "i":
-   "did:keri:EQzFVaMasUf4cZZBKA0pUbRc9T8yUXRFLyM1JDASYqAA", "dt":
-   "2021-06-09T17:35:54.169967+00:00", "ri":
-   "did:keri:EymRy7xMwsxUelUauaXtMxTfPAMPAI6FkekwlOjkggt", "LEI":
-   "254900OPPU84GM83MG36", "personal": { "legalName": "John Doe", "home-
-   city": "Durham" } }, "p": [ { "qualifiedIssuerCredential": { "d":
-   "EIl3MORH3dCdoFOLe71iheqcywJcnjtJtQIYPvAu6DZA", "i":
-   "Et2DOOu4ivLsjpv89vgv6auPntSLx4CvOhGUxMhxPS24" } }, {
-   "certifiedLender": { "d":
-   "EglG9JLG6UhkLrrv012NPuLEc1F3ne5vPH_sHGP_QPN0", "i":
-   "E8YrUcVIqrMtDJHMHDde7LHsrBOpvN38PLKe_JCDzVrA" } } ] }
+   {
+     "v": "ACDC10JSON00011c_",
+     "d": "EBdXt3gIXOf2BBWNHdSXCJnFJL5OuQPyM5K0neuniccM",
+     "i": "did:keri:EmkPreYpZfFk66jpf3uFv7vklXKhzBrAqjsKAn2EDIPM",
+     "s": "E46jrVPTzlSkUPqGGeIZ8a8FWS7a6s4reAXRZOkogZ2A",
+     "a": {
+       "d": "EgveY4-9XgOcLxUderzwLIr9Bf7V_NHwY1lkFrn9y2PY",
+       "i": "did:keri:EQzFVaMasUf4cZZBKA0pUbRc9T8yUXRFLyM1JDASYqAA",
+       "dt": "2021-06-09T17:35:54.169967+00:00",
+       "ri": "did:keri:EymRy7xMwsxUelUauaXtMxTfPAMPAI6FkekwlOjkggt",
+       "LEI": "254900OPPU84GM83MG36",
+       "personal": {
+         "legalName": "John Doe",
+         "home-city": "Durham"
+       }
+     },
+     "p": [
+       {
+         "qualifiedIssuerCredential": {
+           "d": "EIl3MORH3dCdoFOLe71iheqcywJcnjtJtQIYPvAu6DZA",
+           "i": "Et2DOOu4ivLsjpv89vgv6auPntSLx4CvOhGUxMhxPS24"
+         }
+       },
+       {
+         "certifiedLender": {
+           "d": "EglG9JLG6UhkLrrv012NPuLEc1F3ne5vPH_sHGP_QPN0",
+           "i": "E8YrUcVIqrMtDJHMHDde7LHsrBOpvN38PLKe_JCDzVrA"
+         }
+       }
+     ]
+   }
 
    Figure 1.  Example ACDC Credential SAD
 
    The examples in Table 1 represent all the features of the SAD Path
-   language when referring to the SAD in Figure 1.
+   language when referring to the SAD in Figure 1. along with the CESR
+   text encodeing.
 
-   +================+==============================================+========+
-   |SAD Path        |Result                                        |Notes   |
-   +================+==============================================+========+
-   |-               |The root of the SAD                           |Root    |
-   |                |                                              |Path    |
-   +----------------+----------------------------------------------+--------+
-   |-a-personal     |The personal map of the a field               |Only    |
-   |                |                                              |field   |
-   |                |                                              |labels  |
-   +----------------+----------------------------------------------+--------+
-   |-4-5            |The personal map of the a field               |Only    |
-   |                |                                              |field   |
-   |                |                                              |indices |
-   +----------------+----------------------------------------------+--------+
-   |-4-5-legalName  |"John Doe"                                    |Mixing  |
-   |                |                                              |field   |
-   |                |                                              |labels  |
-   |                |                                              |and     |
-   |                |                                              |indices |
-   +----------------+----------------------------------------------+--------+
-   |-a-personal-1   |"Durham"                                      |Required|
-   |                |                                              |to use  |
-   |                |                                              |field   |
-   |                |                                              |index   |
-   |                |                                              |because |
-   |                |                                              |field   |
-   |                |                                              |label   |
-   |                |                                              |contains|
-   |                |                                              |-       |
-   +----------------+----------------------------------------------+--------+
-   |-p-1            |The second element in the p array             |Array   |
-   |                |                                              |context |
-   |                |                                              |and     |
-   |                |                                              |index   |
-   +----------------+----------------------------------------------+--------+
-   |-p-0-0-d        |"EIl3MORH3dCdoFOLe71iheqcywJcnjtJtQIYPvAu6DZA"|Mixing  |
-   |                |                                              |field   |
-   |                |                                              |labels, |
-   |                |                                              |field   |
-   |                |                                              |indices |
-   |                |                                              |and     |
-   |                |                                              |array   |
-   |                |                                              |indices |
-   +----------------+----------------------------------------------+--------+
-   |-p-0-certifiedLe|"E8YrUcVIqrMtDJHMHDde7LHsrBOpvN38PLKe_JCDzVrA"|        |
-   |nder-i          |                                              |        |
-   +----------------+----------------------------------------------+--------+
+    +==================+========================+=====================+
+    | SAD Path         | Result                 | CESR T Domain       |
+    |                  |                        | Encoding            |
+    +==================+========================+=====================+
+    | -                | The root of the SAD    | 6AAA00-             |
+    +------------------+------------------------+---------------------+
+    | -a-personal      | The personal map of    | 5AAC0-a-personal    |
+    |                  | the a field            |                     |
+    +------------------+------------------------+---------------------+
+    | -4-5             | The personal map of    | 6AAB00-4-5          |
+    |                  | the a field            |                     |
+    +------------------+------------------------+---------------------+
+    | -4-5-legalName   | "John Doe"             | 5AAD0-4-5-legalName |
+    +------------------+------------------------+---------------------+
+    | -a-personal-1    | "Durham"               | 6AAD00-a-personal-1 |
+    +------------------+------------------------+---------------------+
+    | -p-1             | The second element in  | 6AAB00-p-1          |
+    |                  | the p array            |                     |
+    +------------------+------------------------+---------------------+
+    | -a-LEI           | "254900OPPU84GM83MG36" | 4AAAB-a-LEI         |
+    +------------------+------------------------+---------------------+
+    | -p-0-0-d         | "EIl3MORH...6DZA"      | 5AAC0-p-0-0-d       |
+    +------------------+------------------------+---------------------+
+    | -p-0-certifiedLe | "E8YrUcVI...zVrA"      | 6AAF00-p-0-certifie |
+    | nder-i           |                        | dLender-i           |
+    +------------------+------------------------+---------------------+
 
                                   Table 1
 
-2.3.  CESR Encoding for SAD Path Language
-
 3.  CESR Attachments
 
-   The specification adds 2 _Counter Four Character Codes_ to the Master
-   Code Table and 1 _Small Variable Raw Size Code Type_ to the Master
-   Code Table (which results in 3 new code entries):
+   This specification adds 2 _Counter Four Character Codes_ to the
+   Master Code Table and 1 _Small Variable Raw Size Code Type_ to the
+   Master Code Table (which results in 3 new code entries.  The
+   additions to the Master Code Table of CESR is shown below:
 
-    +=========+==========================+========+==========+========+
-    |   Code  | Description              |  Code  | Count or | Total  |
-    |         |                          | Length |  Index   | Length |
-    |         |                          |        |  Length  |        |
-    +=========+==========================+========+==========+========+
-    |         | **Counter Four Character |        |          |        |
-    +---------+--------------------------+--------+----------+--------+
-    | Codes** |                          |        |          |        |
-    +---------+--------------------------+--------+----------+--------+
-    |   -K##  | Count of attached        |   4    |    2     |   4    |
-    |         | qualified Base64 indexed |        |          |        |
-    |         | controller signatures    |        |          |        |
-    +---------+--------------------------+--------+----------+--------+
-    |   -J##  | Count of attached        |   4    |    2     |   4    |
-    |         | qualified Base64 indexed |        |          |        |
-    |         | witness signatures       |        |          |        |
-    +---------+--------------------------+--------+----------+--------+
-    |         | **Small Variable Raw     |        |          |        |
-    |         | Size                     |        |          |        |
-    +---------+--------------------------+--------+----------+--------+
-    |  Code** |                          |        |          |        |
-    +---------+--------------------------+--------+----------+--------+
-    |   4A##  | Size of SAD Path with 0  |   4    |    2     |   4    |
-    |         | Lead Bytes               |        |          |        |
-    +---------+--------------------------+--------+----------+--------+
-    |   5A##  | Said of SAD Path with 1  |   4    |    2     |   4    |
-    |         | Lead Byte                |        |          |        |
-    +---------+--------------------------+--------+----------+--------+
-    |   6A##  | Size of SAD Path with 2  |   4    |    2     |   4    |
-    |         | Lead Bytes               |        |          |        |
-    +---------+--------------------------+--------+----------+--------+
+     +======+===========================+========+==========+========+
+     | Code | Description               |  Code  | Count or | Total  |
+     |      |                           | Length |  Index   | Length |
+     |      |                           |        |  Length  |        |
+     +======+===========================+========+==========+========+
+     |      | *Counter Four Character   |        |          |        |
+     |      | Codes*                    |        |          |        |
+     +------+---------------------------+--------+----------+--------+
+     | -J## | Count of attached         |   4    |    2     |   4    |
+     |      | qualified Base64 SAD path |        |          |        |
+     |      | sig groups path+sig group |        |          |        |
+     |      | (trans or non-trans)      |        |          |        |
+     +------+---------------------------+--------+----------+--------+
+     | -K## | Count of attached         |   4    |    2     |   4    |
+     |      | qualified Base64 SAD Path |        |          |        |
+     |      | groups                    |        |          |        |
+     +------+---------------------------+--------+----------+--------+
+     |      | *Small Variable Raw Size  |        |          |        |
+     |      | Code*                     |        |          |        |
+     +------+---------------------------+--------+----------+--------+
+     | 4A## | Size of SAD Path with 0   |   4    |    2     |   4    |
+     |      | Lead Bytes                |        |          |        |
+     +------+---------------------------+--------+----------+--------+
+     | 5A## | Size of SAD Path with 1   |   4    |    2     |   4    |
+     |      | Lead Byte                 |        |          |        |
+     +------+---------------------------+--------+----------+--------+
+     | 6A## | Size of SAD Path with 2   |   4    |    2     |   4    |
+     |      | Lead Bytes                |        |          |        |
+     +------+---------------------------+--------+----------+--------+
 
                                   Table 2
 
-3.1.  Additional Count Codes
+3.1.  CESR Signature Attachments
 
-3.2.  Streamable SADs
+   CESR defines several counter codes for attaching signatures to non-
+   CESR event messages.  For KERI event messages, the signatures in the
+   attachments apply to the entire serialized content of the KERI event
+   message.  As all KERI event messages are SADs, the same rules for
+   signing a KERI event message applies to sign SAD for CESR Proof
+   Signatures.  A brief review of CESR signatures for transferable and
+   non-transferable identifiers follows.  In addition, signatures on
+   nested content must be specified.
 
-3.3.  Nested Partial Signatures
+3.1.1.  Signing SAD Content
 
-3.4.  Transposable Signature Attachments
+   The rules for signing SAD content require using the serialized
+   version of the SAD as determined by the KERI event message version.
+   For any KERI event message or ACDC verifiable credential, the version
+   string as found in the v field of the message is used to determine
+   the serialization of the SAD and will be one of JSON, CBOR or
+   MessagePack.
 
-4.  CESR Signatures
+3.1.2.  Signatures with Non-Transferable Identifiers
 
-   Introduction to CESR Signatures
+   Non-transferable identifiers only ever have one public key.  In
+   addition, the identifier prefix is identical to the public key and
+   therefore no KEL is required to validate the signature of a non-
+   transferable identifier.  The attachment code for witness receipt
+   couplets, used for CESR Proof Signatures, takes this into account.
+   The four character couner code -C## is used for non-transferable
+   identifiers and contains the signing identfier prefix and the
+   signature.  Since the verification key is the identifier prefix and
+   the identifier can not be rotated, all that is required to validate
+   the signature is the identifier prefix, the content signed and the
+   signature.
 
-4.1.  Signatures with Non-Transferable Identifiers
+3.1.3.  Signatures with Transferable Identifiers
 
-4.2.  Signatures with Transferable Identifiers
+   Transferable identifiers require full KEL resolution and verfication
+   to determine the correct public key used to sign some content.  In
+   addition, the attachment code used for transferable identifiers, -F##
+   must specify the location in the KEL at which point the signature was
+   generated.  To accomplish this, this counter code includes the
+   identifier prefix, the sequence number of the event in the KEL, the
+   digest of the event in the KEL and the indexed signatures
+   (transferable identifiers support multiple public/private keys and
+   require index signatures).  Using all the values, one can verify the
+   signature(s) by retrieving the KEL of the identifier prefix and
+   determine the key state at the sequence number along with validating
+   the digest of the event against the actual event.  Then using the
+   key(s) at the determined key state, validate the signature(s).
 
-4.3.  Selective Disclosure
+3.1.4.  Nested Partial Signatures
 
-4.3.1.  Small Variable Raw Size Path Code
+3.2.  Additional Count Codes
 
-5.  CESR Proof Signature Attachments
+   This specification adds two Counter Four Character Codes to the CESR
+   Master Code Table for attaching and grouping transposable signatures
+   on SAD and nested SAD content.  The first code (-J##) is reserved for
+   attaching a SAD path and the associated signatures on the content at
+   the resolution of the SAD Path (either a SAD or its associated SAID).
+   The second reserved code (-K##) is for grouping all SAD Path
+   signature groups under a root path for a given SAD.  The root path in
+   the second grouping code provides signature attachment
+   transposability for embedding SAD content in other messages.
 
-5.1.  -J
+3.2.1.  SAD Path Signature Group
 
-   -J 1 (Path, TransIdxSigGroup)
+   The SAD Path Signature Group provides a four character counter code,
+   -J##, for attaching an encoded variable length SAD Path along with
+   either transferable index signature groups or non-transferable
+   identifer receipt couplets.  The SAD Path identifies the content that
+   this attachment is signing.  The path must resolve to either a nested
+   SAD (map) or a SAID (string) of an externally provided SAD within the
+   context of the SAD and root path against which this attachment is
+   applied.  Using the sample ACDC SAD above, the follow example shows a
+   signature on the nested personal SAD signed by a transferable
+   identifier using the transferable index signature group.  The example
+   is annotated with comments, spaces and line feeds for clarity.
 
-5.2.  -K
+-JAB              # SAD path signature group counter code 1 following the group
+5AAC0-a-personal  # encoded SAD path designation
+-FAB     # Trans Indexed Sig Groups counter code 1 following group
+E_T2_p83_gRSuAYvGhqV3S0JzYEF2dIa-OCPLbIhBO7Y    # trans prefix of signer for sigs
+-EAB0AAAAAAAAAAAAAAAAAAAAAAB    # sequence number of est event of signer's public keys for sigs
+EwmQtlcszNoEIDfqD-Zih3N6o5B3humRKvBBln2juTEM      # digest of est event of signer's public keys for sigs
+-AAD     # Controller Indexed Sigs counter code 3 following sigs
+AA5267UlFg1jHee4Dauht77SzGl8WUC_0oimYG5If3SdIOSzWM8Qs9SFajAilQcozXJVnbkY5stG_K4NbKdNB4AQ         # sig 0
+ABBgeqntZW3Gu4HL0h3odYz6LaZ_SMfmITL-Btoq_7OZFe3L16jmOe49Ur108wH7mnBaq2E_0U0N0c5vgrJtDpAQ    # sig 1
+ACTD7NDX93ZGTkZBBuSeSGsAQ7u0hngpNTZTK_Um7rUZGnLRNJvo5oOnnC1J2iBQHuxoq8PyjdT3BHS2LiPrs2Cg  # sig 2
 
-   -K Count of Sigs (Root Path, Path Sig Groups)
+   The next example demostrates the use of a non-transferable identifier
+   to sign SAD content.  In this example, the entire nested SAD located
+   at the a field is signed by the non-transferable identfier:
 
-5.3.  Embedding and Transposable Signatures
+-JAB       # SAD path signature group counter code 1 following the group
+5AAA0-a    # encoded SAD path designation
+-CAB       # NonTrans witness receipt couplet
+BmMfUwIOywRkyc5GyQXfgDA4UOAMvjvnXcaK9G939ArM  # non-trans prefix of signer of sig
+0BT7b5PzUBmts-lblgOBzdThIQjKCbq8gMinhymgr4_dD0JyfN6CjZhsOqqUYFmRhABQ-vPywggLATxBDnqQ3aBg  # sig
+
+3.2.2.  SAD Path Groups
+
+   The SAD Path Group provides a four character counter code, -K##, for
+   attaching encoded variable length *root* SAD Path along with 1 or
+   more SAD Path Signature Groups.  The root SAD Path identifies the
+   root context against which all included SAD Path Signature Groups are
+   resolved against.  When parsing a SAD Path Group, the root path is
+   prepended to the SAD paths in each of the SAD Path Signature Groups
+   (remembering that trailing - characters in SAD Paths should be
+   ignored).  TODO: Examples
+
+3.2.2.1.  Transposable Signature Attachments
+
+   TODO
+
+3.3.  Small Variable Raw Size SAD Path Code
+
+   The small variable raw side code reserved for SAD Path encoding is A
+   which results in the addition of 3 entries (4A##, 5A## and 6A##) in
+   the Master Code Table for each lead byte configuration.  These codes
+   and their use are discussed in detail in CESR Encoding for SAD Path
+   Language.
+
+4.  Streamable SADs
+
+4.1.  Nested Partial Signatures
+
+4.2.  Embedding and Transposable Signatures
 
    It is required to embed this credential in any other KERI message
    (eg. rpy, exp, exn) along with the CESR Proof.  Since the proof is a
    CESR attachment, this message cannot simply be embedded in another
    JSON document.  Therefore, a method is needed to apply the attachment
    to the outermost message while maintaining its location pointers and
-   meaning for the nested SAD that it represents.
+   meaningfor the nested SAD that it represents.
 
    Given the following signed SAD:
 
-   { "v": "ACDC10JSON00011c_", "d":
-   "EpcEvrX2gGTpmKbIG25GSA7_LsWwwzVQ6aUilgBubpGI", "i":
-   "EmSIYYxvgtKn9jAp8GcK3fXOwTeyBIcAnRnyrLNfKjVI", "s":
-   "EZdaE1HCu2ZhyIhpXTWfGSLS2kirKexaC-4up3sIUz1I", "a": { "d":
-   "EG7PfBZbyXS0huxbnvMD-jOdTnDCCaT4CO6xId-ATNWg", "i": "EhwC_-
-   ISX9helBDUSKU5j_VEU3G0Jp6ZFRD9dTb4-5c0", "dt":
-   "2021-06-09T17:35:54.169967+00:00", "ri":
-   "EymRy7xMwsxUelUauaXtMxTfPAMPAI6FkekwlOjkggt", "LEI":
-   "254900YH3ZCDPE1E5306", "personal": { "d": "ExSxzzsvGlhO6W0O1_-
-   k5Api8NgD8dDHLgazBxTqi_z4", "n":
-   "Q8rNaKITBLLA96Euh5M5v4o3fRl1Bc54xdM-bOIHUjY", "personLegalName":
-   "Anne Jones", "engagementContextRole": "Project Manager" } } }-KAC -
-   -JAB - -FABELfzj-TkiKYWsNKk2WE8F8VEgbu3P-_HComVHcKrvGmY0AAAAAAAAAAAAA
-   AAAAAAAAAAEO94wR_rDPALyK1KYvtjA2CuuWM5A9_T9SfnRAF0OoZs-AABAAha6OA-
-   Uw4nEHi3AleA-
-   W59sVAjTvpPg1XtuFYEnVHG0TBqTabIrSuNIJP9OpSvkZiOWYRlPG839_wAPzU106Aw
-   -JAB -a-personal -FABELfzj-TkiKYWsNKk2WE8F8VEgbu3P-_HComVHcKrvGmY0AAA
-   AAAAAAAAAAAAAAAAAAAAEO94wR_rDPALyK1KYvtjA2CuuWM5A9_T9SfnRAF0OoZs-AABA
-   AFzLPWIG3XEXzKkGxIMAozgh9me6Ss2J4HZpdtqtZDLJRzic2wTePt4wx_PNgLcukTFe7
-   0-MXy2VlJvIaJtOsDA
+{
+  "v": "ACDC10JSON00011c_",
+  "d": "EpcEvrX2gGTpmKbIG25GSA7_LsWwwzVQ6aUilgBubpGI",
+  "i": "EmSIYYxvgtKn9jAp8GcK3fXOwTeyBIcAnRnyrLNfKjVI",
+  "s": "EZdaE1HCu2ZhyIhpXTWfGSLS2kirKexaC-4up3sIUz1I",
+  "a": {
+    "d": "EG7PfBZbyXS0huxbnvMD-jOdTnDCCaT4CO6xId-ATNWg",
+    "i": "EhwC_-ISX9helBDUSKU5j_VEU3G0Jp6ZFRD9dTb4-5c0",
+    "dt": "2021-06-09T17:35:54.169967+00:00",
+    "ri": "EymRy7xMwsxUelUauaXtMxTfPAMPAI6FkekwlOjkggt",
+    "LEI": "254900YH3ZCDPE1E5306",
+    "personal": {
+      "d": "ExSxzzsvGlhO6W0O1_-k5Api8NgD8dDHLgazBxTqi_z4",
+      "n": "Q8rNaKITBLLA96Euh5M5v4o3fRl1Bc54xdM-bOIHUjY",
+      "personLegalName": "Anne Jones",
+      "engagementContextRole": "Project Manager"
+    }
+  }
+}-KAC  -  -JAB  -  -FABELfzj-TkiKYWsNKk2WE8F8VEgbu3P-_HComVHcKrvGmY0AAAAAAAAAAAAAAAAAAAAAAAEO94wR_rDPALyK1KYvtjA2CuuWM5A9_T9SfnRAF0OoZs-AABAAha6OA-Uw4nEHi3AleA-W59sVAjTvpPg1XtuFYEnVHG0TBqTabIrSuNIJP9OpSvkZiOWYRlPG839_wAPzU106Aw
+          -JAB  -a-personal -FABELfzj-TkiKYWsNKk2WE8F8VEgbu3P-_HComVHcKrvGmY0AAAAAAAAAAAAAAAAAAAAAAAEO94wR_rDPALyK1KYvtjA2CuuWM5A9_T9SfnRAF0OoZs-AABAAFzLPWIG3XEXzKkGxIMAozgh9me6Ss2J4HZpdtqtZDLJRzic2wTePt4wx_PNgLcukTFe70-MXy2VlJvIaJtOsDA
 
-   ``` { "v": "KERI10JSON00006a_", "t": "exn", "d":
-   "EF3Dd96ATbbMIZgUBBwuFAWx3_8s5XSt_0jeyCRXq_bM", "dt":
-   "2021-11-12T19:11:19.342132+00:00", "r": "/credential/issue", "a": {
-   "v": "ACDC10JSON00011c_", "d":
-   "EpcEvrX2gGTpmKbIG25GSA7_LsWwwzVQ6aUilgBubpGI", "i":
-   "EmSIYYxvgtKn9jAp8GcK3fXOwTeyBIcAnRnyrLNfKjVI", "s":
-   "EZdaE1HCu2ZhyIhpXTWfGSLS2kirKexaC-4up3sIUz1I", "a": { "d":
-   "EG7PfBZbyXS0huxbnvMD-jOdTnDCCaT4CO6xId-ATNWg", "i": "EhwC_-
-   ISX9helBDUSKU5j_VEU3G0Jp6ZFRD9dTb4-5c0", "dt":
-   "2021-06-09T17:35:54.169967+00:00", "ri":
-   "EymRy7xMwsxUelUauaXtMxTfPAMPAI6FkekwlOjkggt", "LEI":
-   "254900YH3ZCDPE1E5306", "personal": { "d": "ExSxzzsvGlhO6W0O1_-
-   k5Api8NgD8dDHLgazBxTqi_z4", "n":
-   "Q8rNaKITBLLA96Euh5M5v4o3fRl1Bc54xdM-bOIHUjY", "personLegalName":
-   "Anne Jones", "engagementContextRole": "Project Manager" } } } }-AAB
-   (message signature) -KAC -a -JAB - -FABELfzj-TkiKYWsNKk2WE8F8VEgbu3P-
-   _HComVHcKrvGmY0AAAAAAAAAAAAAAAAAAAAAAAEO94wR_rDPALyK1KYvtjA2CuuWM5A9_
-   T9SfnRAF0OoZs-AABAAha6OA-Uw4nEHi3AleA-
-   W59sVAjTvpPg1XtuFYEnVHG0TBqTabIrSuNIJP9OpSvkZiOWYRlPG839_wAPzU106Aw
-   -JAB -a-personal -FABELfzj-TkiKYWsNKk2WE8F8VEgbu3P-_HComVHcKrvGmY0AAA
-   AAAAAAAAAAAAAAAAAAAAEO94wR_rDPALyK1KYvtjA2CuuWM5A9_T9SfnRAF0OoZs-AABA
-   AFzLPWIG3XEXzKkGxIMAozgh9me6Ss2J4HZpdtqtZDLJRzic2wTePt4wx_PNgLcukTFe7
-   0-MXy2VlJvIaJtOsDA
+{
+  "v": "KERI10JSON00006a_",
+  "t": "exn",
+  "d": "EF3Dd96ATbbMIZgUBBwuFAWx3_8s5XSt_0jeyCRXq_bM",
+  "dt": "2021-11-12T19:11:19.342132+00:00",
+  "r": "/credential/issue",
+  "a": {
+    "v": "ACDC10JSON00011c_",
+    "d": "EpcEvrX2gGTpmKbIG25GSA7_LsWwwzVQ6aUilgBubpGI",
+    "i": "EmSIYYxvgtKn9jAp8GcK3fXOwTeyBIcAnRnyrLNfKjVI",
+    "s": "EZdaE1HCu2ZhyIhpXTWfGSLS2kirKexaC-4up3sIUz1I",
+    "a": {
+      "d": "EG7PfBZbyXS0huxbnvMD-jOdTnDCCaT4CO6xId-ATNWg",
+      "i": "EhwC_-ISX9helBDUSKU5j_VEU3G0Jp6ZFRD9dTb4-5c0",
+      "dt": "2021-06-09T17:35:54.169967+00:00",
+      "ri": "EymRy7xMwsxUelUauaXtMxTfPAMPAI6FkekwlOjkggt",
+      "LEI": "254900YH3ZCDPE1E5306",
+      "personal": {
+        "d": "ExSxzzsvGlhO6W0O1_-k5Api8NgD8dDHLgazBxTqi_z4",
+        "n": "Q8rNaKITBLLA96Euh5M5v4o3fRl1Bc54xdM-bOIHUjY",
+        "personLegalName": "Anne Jones",
+        "engagementContextRole": "Project Manager"
+      }
+    }
+  }
+}-AAB (message signature)
+-KAC  -a  -JAB  -  -FABELfzj-TkiKYWsNKk2WE8F8VEgbu3P-_HComVHcKrvGmY0AAAAAAAAAAAAAAAAAAAAAAAEO94wR_rDPALyK1KYvtjA2CuuWM5A9_T9SfnRAF0OoZs-AABAAha6OA-Uw4nEHi3AleA-W59sVAjTvpPg1XtuFYEnVHG0TBqTabIrSuNIJP9OpSvkZiOWYRlPG839_wAPzU106Aw
+          -JAB  -a-personal -FABELfzj-TkiKYWsNKk2WE8F8VEgbu3P-_HComVHcKrvGmY0AAAAAAAAAAAAAAAAAAAAAAAEO94wR_rDPALyK1KYvtjA2CuuWM5A9_T9SfnRAF0OoZs-AABAAFzLPWIG3XEXzKkGxIMAozgh9me6Ss2J4HZpdtqtZDLJRzic2wTePt4wx_PNgLcukTFe70-MXy2VlJvIaJtOsDA
 
-   ```
+5.  Presentation Exchange
 
-6.  Presentation Exchange
+6.  Selective Disclosure Credentials
 
-7.  Selective Disclosure Credentials
+7.  One-Time Use Credentials
 
 8.  Conventions and Definitions
 
