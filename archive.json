@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-12-05T01:11:13.915722+00:00",
+  "timestamp": "2021-12-07T01:09:12.945028+00:00",
   "repo": "WebOfTrust/ietf-cesr-proof",
   "labels": [
     {
@@ -101,6 +101,62 @@
       "mergedBy": "pfeairheller",
       "mergeCommit": {
         "oid": "e8bbe87b2d42d4dd263063340deab5ec776e5dfd"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOGWk-OM4vaKk4",
+      "title": "0.0.3",
+      "url": "https://github.com/WebOfTrust/ietf-cesr-proof/pull/3",
+      "state": "MERGED",
+      "author": "pfeairheller",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Introduction and transposable signature attachment brief.\r\n\r\nSAD Path language.",
+      "createdAt": "2021-12-05T22:44:34Z",
+      "updatedAt": "2021-12-05T23:27:56Z",
+      "baseRepository": "WebOfTrust/ietf-cesr-proof",
+      "baseRefName": "main",
+      "baseRefOid": "e8bbe87b2d42d4dd263063340deab5ec776e5dfd",
+      "headRepository": "pfeairheller/ietf-cesr-proof",
+      "headRefName": "feat-intro",
+      "headRefOid": "d3db90ef0b710c66795c6a5c05a59034811a05a0",
+      "closedAt": "2021-12-05T23:26:54Z",
+      "mergedAt": "2021-12-05T23:26:54Z",
+      "mergedBy": "pfeairheller",
+      "mergeCommit": {
+        "oid": "5ef8293bc365c833521ca09b7d6cc9aa1b00addd"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOGWk-OM4veCTs",
+      "title": "0.4",
+      "url": "https://github.com/WebOfTrust/ietf-cesr-proof/pull/4",
+      "state": "MERGED",
+      "author": "pfeairheller",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Filling out most of the basic capabilities.",
+      "createdAt": "2021-12-06T23:57:38Z",
+      "updatedAt": "2021-12-07T00:00:05Z",
+      "baseRepository": "WebOfTrust/ietf-cesr-proof",
+      "baseRefName": "main",
+      "baseRefOid": "5ef8293bc365c833521ca09b7d6cc9aa1b00addd",
+      "headRepository": "pfeairheller/ietf-cesr-proof",
+      "headRefName": "formatting-json",
+      "headRefOid": "0a4eb377233422b4339664303f20ca9653273664",
+      "closedAt": "2021-12-07T00:00:02Z",
+      "mergedAt": "2021-12-07T00:00:02Z",
+      "mergedBy": "pfeairheller",
+      "mergeCommit": {
+        "oid": "76fab74df205d9f2522066f69c3875d237d84d95"
       },
       "comments": [],
       "reviews": []
