@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-12-07T01:09:12.945028+00:00",
+  "timestamp": "2021-12-09T01:07:06.787996+00:00",
   "repo": "WebOfTrust/ietf-cesr-proof",
   "labels": [
     {
@@ -157,6 +157,34 @@
       "mergedBy": "pfeairheller",
       "mergeCommit": {
         "oid": "76fab74df205d9f2522066f69c3875d237d84d95"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOGWk-OM4vgSnf",
+      "title": "0.0.5",
+      "url": "https://github.com/WebOfTrust/ietf-cesr-proof/pull/5",
+      "state": "MERGED",
+      "author": "pfeairheller",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fleshing out more details.",
+      "createdAt": "2021-12-07T14:38:34Z",
+      "updatedAt": "2021-12-07T14:52:22Z",
+      "baseRepository": "WebOfTrust/ietf-cesr-proof",
+      "baseRefName": "main",
+      "baseRefOid": "76fab74df205d9f2522066f69c3875d237d84d95",
+      "headRepository": "pfeairheller/ietf-cesr-proof",
+      "headRefName": "feat-details",
+      "headRefOid": "53a94f9bd38a61be54e79b34c8ecc409cf318da2",
+      "closedAt": "2021-12-07T14:52:18Z",
+      "mergedAt": "2021-12-07T14:52:18Z",
+      "mergedBy": "pfeairheller",
+      "mergeCommit": {
+        "oid": "bc01c967c270c743b2a6156bd847d33ff98298f4"
       },
       "comments": [],
       "reviews": []
