@@ -1628,7 +1628,8 @@ BmMfUwIOywRkyc5GyQXfgDA4UOAMvjvnXcaK9G939ArM  # non-trans prefix of signer of si
 <a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-signing-nested-sads" class="section-name selfRef">Signing Nested SADs</a>
         </h3>
 <p id="section-4.1-1">When signing nested SAD content, the serialization used at the time of signing is the only serialization that can be used when presenting the signed data.  When transposing the signatures and nesting the signed data, the enveloping SAD must use the same serialization that was used to create the signatures.  This is to ensure that all signatures apply to the data over the wire and not a transformation of that data.  The serialization can be determined from the version field (<code>v</code>) of the nested SAD or any parent of the nested SAD as they are guaranteed to be identical.  Consider the following ACDC Credential SAD:<a href="#section-4.1-1" class="pilcrow">¶</a></p>
-<p id="section-4.1-2"><code>json
+<div id="section-4.1-2">
+<pre class="lang-json sourcecode">
 {
   "v": "ACDC10JSON00011c_",
   "d": "EBdXt3gIXOf2BBWNHdSXCJnFJL5OuQPyM5K0neuniccM",
@@ -1647,7 +1648,8 @@ BmMfUwIOywRkyc5GyQXfgDA4UOAMvjvnXcaK9G939ArM  # non-trans prefix of signer of si
     }
   }
 }
-</code><a href="#section-4.1-2" class="pilcrow">¶</a></p>
+</pre><a href="#section-4.1-2" class="pilcrow">¶</a>
+</div>
 <p id="section-4.1-3">To sign the SAD located at the path <code>-a</code>, JSON serialization would be used because the SAD at that path does not have a version field so the version field of its parent is used.  The serialization rules (spacing, field ordering, etc) for a SAD would be used for the SAD and the serialization type and the signature would be applied to the bytes of the JSON for that map.  Any presentation of the signed data must always include the fully nested SAD.  The only valid nesting of this credential would be as follows:<a href="#section-4.1-3" class="pilcrow">¶</a></p>
 <div id="section-4.1-4">
 <pre class="lang-json sourcecode">
