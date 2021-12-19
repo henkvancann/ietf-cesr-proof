@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-12-16T01:07:02.178330+00:00",
+  "timestamp": "2021-12-19T01:13:02.980803+00:00",
   "repo": "WebOfTrust/ietf-cesr-proof",
   "labels": [
     {
@@ -173,7 +173,7 @@
       "labels": [],
       "body": "Fleshing out more details.",
       "createdAt": "2021-12-07T14:38:34Z",
-      "updatedAt": "2021-12-07T14:52:22Z",
+      "updatedAt": "2021-12-18T20:28:07Z",
       "baseRepository": "WebOfTrust/ietf-cesr-proof",
       "baseRefName": "main",
       "baseRefOid": "76fab74df205d9f2522066f69c3875d237d84d95",
@@ -185,6 +185,62 @@
       "mergedBy": "pfeairheller",
       "mergeCommit": {
         "oid": "bc01c967c270c743b2a6156bd847d33ff98298f4"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOGWk-OM4wCaIc",
+      "title": "0.1.0",
+      "url": "https://github.com/WebOfTrust/ietf-cesr-proof/pull/6",
+      "state": "MERGED",
+      "author": "pfeairheller",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Complete examples, full count codes and nested partial signatures.\r\n",
+      "createdAt": "2021-12-18T20:33:02Z",
+      "updatedAt": "2021-12-18T20:40:08Z",
+      "baseRepository": "WebOfTrust/ietf-cesr-proof",
+      "baseRefName": "main",
+      "baseRefOid": "bc01c967c270c743b2a6156bd847d33ff98298f4",
+      "headRepository": "pfeairheller/ietf-cesr-proof",
+      "headRefName": "feat-final-details",
+      "headRefOid": "02198377a2820f4faf1c1a05c1d177337d799478",
+      "closedAt": "2021-12-18T20:36:15Z",
+      "mergedAt": "2021-12-18T20:36:15Z",
+      "mergedBy": "pfeairheller",
+      "mergeCommit": {
+        "oid": "6a6ba644509833a4d46477fe21cc67a409424168"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOGWk-OM4wCapT",
+      "title": "0.1.1",
+      "url": "https://github.com/WebOfTrust/ietf-cesr-proof/pull/7",
+      "state": "MERGED",
+      "author": "pfeairheller",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Minor edit",
+      "createdAt": "2021-12-18T20:47:58Z",
+      "updatedAt": "2021-12-18T20:53:49Z",
+      "baseRepository": "WebOfTrust/ietf-cesr-proof",
+      "baseRefName": "main",
+      "baseRefOid": "6a6ba644509833a4d46477fe21cc67a409424168",
+      "headRepository": "pfeairheller/ietf-cesr-proof",
+      "headRefName": "minor-edit",
+      "headRefOid": "c8acf76b2ecb7186a82e653818ae856e9e8a6951",
+      "closedAt": "2021-12-18T20:53:49Z",
+      "mergedAt": "2021-12-18T20:53:49Z",
+      "mergedBy": "pfeairheller",
+      "mergeCommit": {
+        "oid": "7f6d3b17b1e40f72bc5e5816af92b2d19a0653ea"
       },
       "comments": [],
       "reviews": []
