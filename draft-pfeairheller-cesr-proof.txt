@@ -83,7 +83,7 @@ Table of Contents
      3.3.  Small Variable Raw Size SAD Path Code
    4.  Nested Partial Signatures
      4.1.  Signing Nested SADs
-     4.2.  Signing SAID
+     4.2.  Signing SAIDs
    5.  Conventions and Definitions
    6.  Security Considerations
    7.  IANA Considerations
@@ -100,9 +100,9 @@ Table of Contents
    concatenation composability.  The CESR specification not only
    provides the definition of the streaming format but also the codes
    needed for creating and sharing all event types and signatures on all
-   event types for the Key Event Receipt Infrastructure (KERI).  While
-   all KERI event messages are self-addressing data (SAD), there is a
-   broad class of SADs that are not KERI events but that require
+   event types for the Key Event Receipt Infrastructure (KERI) [KERI].
+   While all KERI event messages are self-addressing data (SAD), there
+   is a broad class of SADs that are not KERI events but that require
    signature attachments.  ACDC Verifiable credentials fit into this
    class of SADs.  With more complex data structures represented as
    SADs, such as verifiable credentials, there is a need to provide
@@ -488,8 +488,8 @@ Table of Contents
    {
      "v": "KERI10JSON00011c_",
      "t": "exn",
-     "dt": "2020-08-22T17:50:12.988921+00:00"
-     "r": "/credential/offer"
+     "dt": "2020-08-22T17:50:12.988921+00:00",
+     "r": "/credential/offer",
      "a": {
        "credential": { // SIGNATURE TARGET OF TRANSPOSED SAD PATH GROUP
          "v": "ACDC10JSON00011c_",
@@ -561,7 +561,7 @@ BmMfUwIOywRkyc5GyQXfgDA4UOAMvjvnXcaK9G939ArM  # non-trans prefix of signer of si
      "d": "EBdXt3gIXOf2BBWNHdSXCJnFJL5OuQPyM5K0neuniccM",
      "i": "EmkPreYpZfFk66jpf3uFv7vklXKhzBrAqjsKAn2EDIPM",
      "s": "E46jrVPTzlSkUPqGGeIZ8a8FWS7a6s4reAXRZOkogZ2A",
-     "a": {   // SIGNATURE TARGET OF SAD PATH GROUP
+     "a": {  // SIGNATURE TARGET OF SAD PATH GROUP
        "d": "EgveY4-9XgOcLxUderzwLIr9Bf7V_NHwY1lkFrn9y2PY",
        "i": "EQzFVaMasUf4cZZBKA0pUbRc9T8yUXRFLyM1JDASYqAA",
        "dt": "2021-06-09T17:35:54.169967+00:00",
@@ -572,6 +572,7 @@ BmMfUwIOywRkyc5GyQXfgDA4UOAMvjvnXcaK9G939ArM  # non-trans prefix of signer of si
          "city": "Durham"
        }
      }
+   }
 
 3.2.2.1.  Transposable Signature Attachments
 
@@ -594,7 +595,7 @@ BmMfUwIOywRkyc5GyQXfgDA4UOAMvjvnXcaK9G939ArM  # non-trans prefix of signer of si
        "d": "EBdXt3gIXOf2BBWNHdSXCJnFJL5OuQPyM5K0neuniccM",
        "i": "EmkPreYpZfFk66jpf3uFv7vklXKhzBrAqjsKAn2EDIPM",
        "s": "E46jrVPTzlSkUPqGGeIZ8a8FWS7a6s4reAXRZOkogZ2A",
-       "a": {   // SIGNATURE TARGET OF TRANSPOSED SAD PATH GROUP
+       "a": { // SIGNATURE TARGET OF TRANSPOSED SAD PATH GROUP
          "d": "EgveY4-9XgOcLxUderzwLIr9Bf7V_NHwY1lkFrn9y2PY",
          "i": "EQzFVaMasUf4cZZBKA0pUbRc9T8yUXRFLyM1JDASYqAA",
          "dt": "2021-06-09T17:35:54.169967+00:00",
@@ -606,6 +607,7 @@ BmMfUwIOywRkyc5GyQXfgDA4UOAMvjvnXcaK9G939ArM  # non-trans prefix of signer of si
          }
        }
      }
+   }
 
    The same signature gets transposed to the outer exn SAD by updating
    the root path of the -K## attachment:
@@ -700,12 +702,12 @@ BmMfUwIOywRkyc5GyQXfgDA4UOAMvjvnXcaK9G939ArM  # non-trans prefix of signer of si
      }
    }
 
-4.2.  Signing SAID
+4.2.  Signing SAIDs
 
-   Applying signatures to SADs with SAIDs in place of fully expanded SAD
-   content enables compact credentials for domains with bandwidth
-   restrictions such as IoT.  Consider the following fully expanded
-   credential:
+   Applying signatures to a SAD with SAIDs in place of fully expanded
+   nested SAD content enables compact credentials for domains with
+   bandwidth restrictions such as IoT.  Consider the following fully
+   expanded credential:
 
    {
        "v": "ACDC10JSON00011c_",
