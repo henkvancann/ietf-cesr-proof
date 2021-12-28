@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-12-26T01:12:54.125049+00:00",
+  "timestamp": "2021-12-28T01:08:33.565103+00:00",
   "repo": "WebOfTrust/ietf-cesr-proof",
   "labels": [
     {
@@ -229,7 +229,7 @@
       "labels": [],
       "body": "Minor edit",
       "createdAt": "2021-12-18T20:47:58Z",
-      "updatedAt": "2021-12-18T20:53:49Z",
+      "updatedAt": "2021-12-27T17:25:12Z",
       "baseRepository": "WebOfTrust/ietf-cesr-proof",
       "baseRefName": "main",
       "baseRefOid": "6a6ba644509833a4d46477fe21cc67a409424168",
@@ -241,6 +241,62 @@
       "mergedBy": "pfeairheller",
       "mergeCommit": {
         "oid": "7f6d3b17b1e40f72bc5e5816af92b2d19a0653ea"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOGWk-OM4wT4kv",
+      "title": "0.1.2",
+      "url": "https://github.com/WebOfTrust/ietf-cesr-proof/pull/8",
+      "state": "MERGED",
+      "author": "pfeairheller",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Compact Credentials and Rules for version field.",
+      "createdAt": "2021-12-27T17:27:51Z",
+      "updatedAt": "2021-12-27T17:37:15Z",
+      "baseRepository": "WebOfTrust/ietf-cesr-proof",
+      "baseRefName": "main",
+      "baseRefOid": "7f6d3b17b1e40f72bc5e5816af92b2d19a0653ea",
+      "headRepository": "pfeairheller/ietf-cesr-proof",
+      "headRefName": "compact-credentials",
+      "headRefOid": "0a01451fc7dd7b469dfb23cba62ba7c93dd70ccd",
+      "closedAt": "2021-12-27T17:37:11Z",
+      "mergedAt": "2021-12-27T17:37:11Z",
+      "mergedBy": "pfeairheller",
+      "mergeCommit": {
+        "oid": "9b5d148a162f3e0268cf12f98f9d78d4e66ad712"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOGWk-OM4wT7GK",
+      "title": "0.1.3",
+      "url": "https://github.com/WebOfTrust/ietf-cesr-proof/pull/9",
+      "state": "MERGED",
+      "author": "pfeairheller",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": " git push --set-upstream origin minor-updates",
+      "createdAt": "2021-12-27T17:50:57Z",
+      "updatedAt": "2021-12-27T17:51:34Z",
+      "baseRepository": "WebOfTrust/ietf-cesr-proof",
+      "baseRefName": "main",
+      "baseRefOid": "9b5d148a162f3e0268cf12f98f9d78d4e66ad712",
+      "headRepository": "pfeairheller/ietf-cesr-proof",
+      "headRefName": "minor-updates",
+      "headRefOid": "2e2f920a89f4c7399a6d94b9a4854a47f48843ba",
+      "closedAt": "2021-12-27T17:51:32Z",
+      "mergedAt": "2021-12-27T17:51:31Z",
+      "mergedBy": "pfeairheller",
+      "mergeCommit": {
+        "oid": "8e878c59394ce5e45fd20766e21c1d63771b4754"
       },
       "comments": [],
       "reviews": []
